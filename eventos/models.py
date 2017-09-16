@@ -5,7 +5,7 @@ from django.db import models
 
 # Create your models here.
 
-class Evento():
+class Evento(models.Model):
     FINALIZADO = _('FN')
     SIN_INICIAR = _('SI')
     CANCELADO = _('CC')
@@ -28,10 +28,11 @@ class Evento():
             (_('cancelar'), _('Puede cambiar el estado de un evento a cancelado')),
         )
 
-class Actividad():
+class Actividad(models.Model):
     nombre = models.CharField(max_length=50, null=False )
     descripcion = models.TextField()
     fechaInicio = models.DateTimeField(auto_now=False, auto_now_add=False, null=False)
     fechaFinalizacion = models.DateTimeField(auto_now=False, auto_now_add=False, null=False)
-    evento = models.ForeignKey(Evento,on_delete=models.CASCADE, )
+    evento = models.ForeignKey('Evento',on_delete=models.CASCADE, )
+
 
