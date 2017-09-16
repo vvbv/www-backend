@@ -33,6 +33,6 @@ class Actividad(models.Model):
     descripcion = models.TextField()
     fechaInicio = models.DateTimeField(auto_now=False, auto_now_add=False, null=False)
     fechaFinalizacion = models.DateTimeField(auto_now=False, auto_now_add=False, null=False)
-    evento = models.ForeignKey('Evento',on_delete=models.CASCADE, )
+    evento = models.ForeignKey('Evento',related_name = 'actividades', on_delete=models.CASCADE, )
 
 

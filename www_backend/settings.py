@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'rest_framework',
     'eventos.apps.EventosConfig',
     'usuarios.apps.UsuariosConfig',
     'django.contrib.auth',
@@ -52,7 +53,12 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'www_backend.urls'
-
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAdminUser',
+    ],
+    'PAGE_SIZE': 10
+}
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
