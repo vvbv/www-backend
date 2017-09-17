@@ -32,4 +32,3 @@ class Actividad(models.Model):
     fechaFinalizacion = models.DateTimeField(auto_now=False, auto_now_add=False, null=False)
     evento = models.ForeignKey('Evento',related_name = 'actividades', on_delete=models.CASCADE, )
 
-
