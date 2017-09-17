@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -53,12 +55,25 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'www_backend.urls'
+<<<<<<< HEAD
+=======
+
+>>>>>>> c783e3775589dc7a5a87a88e0c77cf1f3b04a0de
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAdminUser',
     ],
+<<<<<<< HEAD
     'PAGE_SIZE': 10
 }
+=======
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'PAGE_SIZE': 10
+}
+
+>>>>>>> c783e3775589dc7a5a87a88e0c77cf1f3b04a0de
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
