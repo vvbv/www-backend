@@ -2,4 +2,4 @@
 
 ToQueen Auth.
 
-Por esparta, por la Gloria :v y por el oro.
+Por esparta, por la Gloria :v y por el oro..
