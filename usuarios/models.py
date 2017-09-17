@@ -22,7 +22,4 @@ class Usuario(User):
     estadoHabilitado = models.BooleanField(default=True, null=False)
     fechaHoraRegistro = models.DateField(auto_now_add=True, null=False)
 
-class Test(models.Model):
-    id = models.CharField(primary_key=True ,max_length=2)
-    class Meta:
-        pass
+    
