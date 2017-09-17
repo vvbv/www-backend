@@ -40,6 +40,7 @@ class Evento(models.Model):
 
 
 class Actividad(models.Model):
+    fechaCreacion = models.DateField(auto_now_add=True, editable=False)
     nombre = models.CharField(max_length=50, null=False )
     descripcion = models.TextField(null=False)
     fechaInicio = models.DateTimeField(auto_now=False, auto_now_add=False, null=False)
@@ -59,7 +60,7 @@ class PreInscripcionEvento(models.Model):
     ESTADO_TYPES = tuple(zip(ESTADO_VALS,ESTADO_NAMES))
     evento  = models.ForeignKey(Evento, on_delete=models.CASCADE, related_name='preinscripcionEvento_evento')
     participante = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='preinscripionEvneto_participante')
-    fecha = models.DateTimeField(auto_now_add=True, editable=False)
+    fechaPreInscripcion = models.DateTimeField(auto_now_add=True, editable=False)
     estado = models.CharField(null=False,choices=ESTADO_TYPES, default=RECHAZADO, max_length=2)
 
 class InscripcionEvento(models.Model):
@@ -68,7 +69,8 @@ class InscripcionEvento(models.Model):
     ESTADO_NAMES = (_('Aceptado'), _('Rechazado'))
     ESTADO_VALS = (ACEPTADO, RECHAZADO)
     ESTADO_TYPES = tuple(zip(ESTADO_VALS, ESTADO_NAMES))
-    fecha = models.DateField(auto_now_add=True, null=False, editable=False)
+    fechaRegistro = models.DateField(auto_now_add=True, null=False, editable=False)
+    fechaModificacion = models.DateField(auto_now_add=True, null=False, editable=False)
     estado = models.CharField(choices=ESTADO_TYPES, default=ACEPTADO, max_length=2)
     evento  = models.ForeignKey(Evento, on_delete=models.CASCADE, related_name='inscripcionEvento_evento')
     participante = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='inscripcionEvento_participante')
@@ -77,3 +79,4 @@ class AsistenciaActividad(models.Model):
     participante = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='asistenciaActividad_participante')
     actividad = models.ForeignKey(Actividad, on_delete=models.CASCADE, null=False, related_name='asistenciaActividad_actividad')
     fechaModificacion = models.DateField(auto_now_add=True, null=False, editable=False)
+    fechaRegistro = models.DateField(auto_now_add=True, null=False, editable=False )
