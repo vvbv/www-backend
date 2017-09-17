@@ -6,3 +6,12 @@ El actual trabajo corresponde al diseño del backend de el proyecto de Aplicacio
 Adicionalmente se proveera de una interfaz grafica echa en angular la cual proximamente
 se estara desarrollando
 
+
+
+ToQueen Auth.
+
+Por esparta, por la Gloria :v y por el oro..
+
+++
+
+KndKpz
