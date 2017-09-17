@@ -4,4 +4,5 @@ from usuarios import views
 urlpatterns = [
     url(r'^$', views.none),
     url(r'^usuario/[0-9]*$', views.obtenerUsuario, name="obtenerUsuario"),
+    
 ]
