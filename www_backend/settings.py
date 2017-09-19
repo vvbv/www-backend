@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
 ]
 
+
 MIDDLEWARE = [
 	'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -98,6 +99,17 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': 'django',
+#        'USER': 'postgres',
+#        'PASSWORD' : 'postgres',
+#        'HOST' : 'localhost',
+#        'PORT' : '',
+#    }
+#}
 
 
 # Password validation
