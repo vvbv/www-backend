@@ -164,3 +164,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+<<<<<<< HEAD
+=======
+STATIC_ROOT = '/static/'
+>>>>>>> d29113e1e7010aed6dcac1f203023705e0a2141a
