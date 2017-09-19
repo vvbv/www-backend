@@ -14,7 +14,7 @@ import os
 import datetime
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -95,11 +95,14 @@ WSGI_APPLICATION = 'www_backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd9itre1d1rupht',
+        'USER': 'lzdgcnvojgnpxi',
+        'PASSWORD': '855a413842413f1a3af6f66acfc1bc1a32afb4f2052d93a3e975d5d162dbc6d6',
+        'HOST': 'ec2-54-225-192-243.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
-
 #DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.postgresql',
