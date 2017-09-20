@@ -2,7 +2,8 @@
 from __future__ import unicode_literals
 import json
 from rest_framework import viewsets, generics
-from .models import Usuario
+from usuarios.models import Usuario
+from usuarios.serializers import UsuarioSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
@@ -23,6 +24,12 @@ def obtenerUsuario(request, id):
     }
     retorno = json.dumps(diccionario)
     return Response(retorno)
+
+
+class UsuariosList(generics.ListCreateAPIView):
+    queryset = Usuario.objects.all()
+    serializer_class = UsuarioSerializer
+    
 
 def none():
     pass
