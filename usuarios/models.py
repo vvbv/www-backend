@@ -14,12 +14,10 @@ class Usuario(User):
     """
     Modelo para los usuarios del sistema/publicos
     """
-
     username_validator = ASCIIUsernameValidator()
     nombres = models.CharField(max_length=40, null=False)
     apellidos = models.CharField(max_length=40, null=False)
     id_imagen_perfil = models.CharField(max_length=10, null=True)
- 
     ROLES = (
         ('AD', 'Administrador'),
         ('GR', 'Gerente'),
