@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext as _
 from django.db import models
 from usuarios.models import Usuario 
+import validators
 # Create your models here.
 
 class Evento(models.Model):
@@ -15,7 +17,7 @@ class Evento(models.Model):
     ESTADO_TYPES=   tuple(zip(ESTADO_VALS, ESTADO_NAMES))
     nombre = models.CharField(max_length=50, null=False )
     descripcion = models.TextField()
-    fechaInicio = models.DateTimeField(auto_now=False, auto_now_add=False, null=False)
+    fechaInicio = models.DateTimeField(auto_now=False, auto_now_add=False, null=False, validators=[validators.validate_date_before_now])
     fechaFinalizacion = models.DateTimeField(auto_now=False, auto_now_add=False, null=False) 
     estado = models.CharField(max_length=2, choices=ESTADO_TYPES,default=SIN_INICIAR)
     usuariosPreinscritos = models.ManyToManyField(
@@ -30,6 +32,10 @@ class Evento(models.Model):
                                 through_fields=('evento', 'participante'),
                                 related_name='usuariosInscritos'
     )
+    def clean(self):
+        if (self.fechaInicio >= self.fechaFinalizacion):
+            raise ValidationError(_('La fecha de finalización debe ser mayor a la fecha de inicio'))
+
     
     class Meta:
         permissions = (
