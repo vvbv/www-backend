@@ -1,51 +1,30 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import json
-from rest_framework import viewsets, generics, status
+import rest_framework.permissions as rest_permissions
+from rest_framework import viewsets, generics, status, mixins
 from usuarios.models import Usuario
 from usuarios.serializers import UsuarioSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework.reverse import reverse
 from rest_framework.views import APIView
 from django.shortcuts import render
 
 # Create your views here.
 
-class UsuariosList(generics.ListCreateAPIView):
+class UsuariosList(generics.ListAPIView):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
 
-class Usuario2Detail(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = UsuarioSerializer
-    def get_queryset(self):
-        """
-        This view should return a list of all the purchases for
-        the user as determined by the username portion of the URL.
-        """
-        #username = self.kwargs['username']
-        #return Usuario.objects.filter(purchaser__username=username)
+class UsuarioPkApi(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Usuario.objects.all()
+    serializer_class =  UsuarioSerializer
 
-        queryset = Usuario.objects.all()
-        username = self.request.query_params.get('username', None)
-        if username is not None:
-            queryset = queryset.filter(purchaser__username=username)
-        return queryset
+class UsuarioUsernameApi(generics.RetrieveUpdateDestroyAPIView):
+    lookup_field = 'username'
+    queryset = Usuario.objects.all()
+    serializer_class =  UsuarioSerializer
 
-class UsuarioDetail(generics.RetrieveUpdateDestroyAPIView):
+class UsuarioCreateApi(generics.CreateAPIView):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
-    #def get_queryset(self):
-    #    """
-    #    This view should return a list of all the purchases for
-    #    the user as determined by the username portion of the URL.
-    #    """
-    #    usernamex = self.kwargs['username']
-    #    return Usuario.objects.filter(username=usernamex)
-    #    print("username_paramusername_paramusername_paramusername_paramusername_paramusername_paramusername_paramusername_param")
-    #    queryset = Usuario.objects.all()
-    #    username_param = self.request.query_params.get('username', None)
-    #    if username_param is not None:
-    #        queryset = queryset.filter(username=username_param)
-    #    return queryset
-    #serializer_class = UsuarioSerializer
