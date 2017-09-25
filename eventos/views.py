@@ -33,7 +33,7 @@ class EventoList(generics.ListCreateAPIView):
     serializer_class = EventoSerializer
 
 class EventoDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Evento.objects.all()
+    queryset = Evento.objects.all() 
     serializer_class = EventoSerializer
 
 class EventoEstadoChoicesViewSet(APIView):

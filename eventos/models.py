@@ -15,10 +15,10 @@ class Evento(models.Model):
     ESTADO_VALS = (FINALIZADO,SIN_INICIAR,CANCELADO)
     ESTADO_NAMES = (_('Finalizado'), _('Sin iniciar'), _('Cancelado'))
     ESTADO_TYPES=   tuple(zip(ESTADO_VALS, ESTADO_NAMES))
-    nombre = models.CharField(max_length=50, null=False )
-    descripcion = models.TextField()
-    fechaInicio = models.DateTimeField(auto_now=False, auto_now_add=False, null=False, validators=[validators.validate_date_before_now])
-    fechaFinalizacion = models.DateTimeField(auto_now=False, auto_now_add=False, null=False) 
+    nombre = models.CharField(_('Name alv'), max_length=50, null=False )
+    descripcion = models.TextField(_('Descirpcion'))
+    fechaInicio = models.DateTimeField(_('Fecha inicio'), auto_now=False, auto_now_add=False, null=False, validators=[validators.validate_date_start_event_before_now])
+    fechaFinalizacion = models.DateTimeField(_('Fecha finalizacion'), auto_now=False, auto_now_add=False, null=False) 
     estado = models.CharField(max_length=2, choices=ESTADO_TYPES,default=SIN_INICIAR)
     usuariosPreinscritos = models.ManyToManyField(
                                      Usuario,
