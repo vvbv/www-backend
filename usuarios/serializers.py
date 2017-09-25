@@ -5,5 +5,5 @@ from usuarios.models import Usuario
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields = ('username','nombres','apellidos','imagenPerfil','rol', 'email','estadoHabilitado','groups','fechaHoraRegistro')
+        fields = ('username','password','nombres','apellidos','imagenPerfil','rol', 'email','estadoHabilitado','groups','fechaHoraRegistro')
         ordering = ['-id']
