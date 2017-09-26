@@ -146,7 +146,7 @@ LANGUAGES = (
     ('en-us', 'English'),
     ('ru_RU', 'Russian'),
 )
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'es'
 
 TIME_ZONE = 'America/Bogota'
 
