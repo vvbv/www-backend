@@ -6,6 +6,7 @@ from imagenes.models import Imagen
 from django.contrib.auth.models import User
 from django.contrib.auth.validators import ASCIIUsernameValidator
 
+
 # Create your models here.
 
 class Usuario(User):
