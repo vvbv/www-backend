@@ -46,7 +46,7 @@ INSTALLED_APPS = [
 
 
 MIDDLEWARE = [
-	'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -61,11 +61,13 @@ ROOT_URLCONF = 'www_backend.urls'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAdminUser',
         'rest_framework.permissions.IsAuthenticated',
 
     ],
 
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
@@ -141,7 +143,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 JWT_AUTH = { 
     'JWT_AUTH_HEADER_PREFIX': 'JWT',
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3000)
+    'JWT_ALLOW_REFRESH': True,
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3000),
 }
 
 # Internationalization
@@ -150,7 +153,7 @@ LANGUAGES = (
     ('en-us', 'English'),
     ('ru_RU', 'Russian'),
 )
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es'
 
 TIME_ZONE = 'America/Bogota'
 
@@ -165,6 +168,8 @@ LOCALE_PATHS = [
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
