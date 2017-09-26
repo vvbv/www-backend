@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext as _
 from django.db import models
 from usuarios.models import Usuario 
-import validators
+import eventos.validators as validators
 # Create your models here.
 
 class Evento(models.Model):
