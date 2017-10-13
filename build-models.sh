@@ -24,8 +24,4 @@ then
 else
     python3.5 manage.py makemigrations
     echo "Tarea terminada."
-<<<<<<< HEAD
 fi
-=======
-fi
->>>>>>> 327142930102021982925477a013e4c007a2b714
