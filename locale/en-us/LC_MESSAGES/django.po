@@ -1,0 +1,54 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-09-16 23:41+0000\n"
+"PO-Revision-Date: 2017-09-16 18:39-0500\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7.1\n"
+
+#: eventos/models.py:9
+msgid "FN"
+msgstr "FS"
+
+#: eventos/models.py:10
+msgid "SI"
+msgstr "UE"
+
+#: eventos/models.py:11
+msgid "CC"
+msgstr "CL"
+
+#: eventos/models.py:14
+msgid "Finalizado"
+msgstr "Finished"
+
+#: eventos/models.py:14
+msgid "Sin iniciar"
+msgstr "Unstarted event"
+
+#: eventos/models.py:14
+msgid "Cancelado"
+msgstr "Canceled"
+
+#: eventos/models.py:23
+msgid "Puede crear un evento"
+msgstr "Can create a event"
+
+#: eventos/models.py:24
+msgid "Puede editar las fechas de inicio y fin de un evento"
+msgstr "Can edit the dates of start and end of an event"
+
+#: eventos/models.py:25
+msgid "Puede cambiar el estado de un evento a cancelado"
+msgstr "Can change the status of an event to canceled"
