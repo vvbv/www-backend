@@ -4,6 +4,10 @@ from .models import Evento, Actividad
 
 class EventoSerializer(serializers.ModelSerializer):
     actividades = serializers.PrimaryKeyRelatedField(many=True, read_only=True) 
+    def validate(self, attrs):
+        instance = Evento(**attrs)
+        instance.clean()
+        return attrs
     class Meta: 
         model = Evento
         fields = ('nombre', 'descripcion', 'fechaInicio', 'fechaFinalizacion', 'estado', 'actividades')

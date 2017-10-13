@@ -8,6 +8,11 @@ rm -rf $PWD/usuarios/__pycache__
 rm $PWD/usuarios/migrations/0*
 rm -rf $PWD/usuarios/migrations/__pycache__
 
+rm -rf $PWD/imagenes/__pycache__
+rm $PWD/imagenes/migrations/0*
+rm -rf $PWD/imagenes/migrations/__pycache__
+rm $PWD/imagenes/cargas/*
+
 if [ "$1" = "with_sqlite3" ]
 then
     rm $PWD/db.sqlite3

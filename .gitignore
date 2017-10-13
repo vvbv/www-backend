@@ -2,6 +2,7 @@
 db.sqlite3
 */migrations/*
 <<<<<<< HEAD
+<<<<<<< HEAD
 *.mo
 =======
 *.mo
@@ -10,3 +11,7 @@ venv
 staticfiles
 .env
 >>>>>>> d29113e1e7010aed6dcac1f203023705e0a2141a
+=======
+*.mo
+imagenes/cargas/*
+>>>>>>> alpha
