@@ -10,7 +10,7 @@ class UsuarioSerializer(serializers.ModelSerializer):
         model = Usuario
         fields = (
             'username', 'password', 'nombres', 'apellidos',
-            'imagenPerfil', 'rol', 'email', 'estadoHabilitado',
+            'imagenPerfil', 'rol', 'custom_email', 'estadoHabilitado',
             'groups', 'fechaHoraRegistro'
             )
         ordering = ['-id']
