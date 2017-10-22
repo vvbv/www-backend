@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from imagenes.models import Imagen
 from django.contrib.auth.models import User
 from django.contrib.auth.validators import ASCIIUsernameValidator
 
@@ -16,7 +15,7 @@ class Usuario(User):
     username_validator = ASCIIUsernameValidator()
     nombres = models.CharField(max_length=40, null=False)
     apellidos = models.CharField(max_length=40, null=False)
-    imagenPerfil = models.ForeignKey(Imagen, on_delete=models.CASCADE, related_name='imagen_usuario')
+    imagenPerfil = models.IntegerField(max_length=None, null=True)
     ROLES = (
         ('AD', 'Administrador'),
         ('GR', 'Gerente'),
