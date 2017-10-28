@@ -3,8 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import User, AbstractUser
-from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import User
 from django.contrib.auth.validators import ASCIIUsernameValidator
 from django.utils.translation import ugettext as _
 
@@ -15,6 +14,7 @@ class Usuario(User):
     Modelo para los usuarios del sistema/publicos
     """
     username_validator = ASCIIUsernameValidator()
+    numero_identificacion = models.CharField(_('Número de identificación'), max_length=60, null=False, unique=True)
     nombres = models.CharField(max_length=40, null=False)
     apellidos = models.CharField(max_length=40, null=False)
     imagenPerfil = models.IntegerField(max_length=None, null=True)
