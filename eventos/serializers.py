@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Evento, Actividad
+from .models import Evento, Actividad, PreInscripcionEvento
 
 
 class EventoSerializer(serializers.ModelSerializer):
@@ -19,3 +19,7 @@ class ActividadSerializer(serializers.HyperlinkedModelSerializer):
         model = Actividad
         fields = ('idActividad', 'nombre', 'descripcion', 'fechaInicio', 'fechaFinalizacion',)
 
+class PreInscripcionEventoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PreInscripcionEvento
+        fields = ('idPreInscripcion', 'evento', 'participante', 'fechaPreInscripcion', 'estado')
