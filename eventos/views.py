@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from rest_framework import viewsets, generics
-from .models import Evento, Actividad
-from .serializers import EventoSerializer, ActividadSerializer 
+from .models import Evento, Actividad, PreInscripcionEvento
+from .serializers import EventoSerializer, ActividadSerializer, PreInscripcionEventoSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
@@ -39,3 +39,11 @@ class EventoDetail(generics.RetrieveUpdateDestroyAPIView):
 class EventoEstadoChoicesViewSet(APIView):
     def get(self, request):
         return Response(Evento.ESTADO_TYPES)
+
+class PreInscripcionEventoList(generics.ListCreateAPIView):
+    queryset = PreInscripcionEvento.objects.all()
+    serializer_class = PreInscripcionEventoSerializer
+
+class PreInscripcionEventoDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = PreInscripcionEvento.objects.all()
+    serializer_class = PreInscripcionEventoSerializer
