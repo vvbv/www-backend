@@ -31,7 +31,10 @@ class UsuarioSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         for attr, value in validated_data.items():
             if attr == 'password':
-                instance.set_password(validated_data['password'])
+                if "pbkdf2" in validated_data['password']:
+                    pass
+                else:
+                    instance.set_password(validated_data['password'])
             else:
                 setattr(instance, attr, value)
         instance.save()
