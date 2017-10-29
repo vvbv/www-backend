@@ -15,6 +15,7 @@ class Evento(models.Model):
     ESTADO_VALS = (FINALIZADO,SIN_INICIAR,CANCELADO)
     ESTADO_NAMES = (_('Finalizado'), _('Sin iniciar'), _('Cancelado'))
     ESTADO_TYPES=   tuple(zip(ESTADO_VALS, ESTADO_NAMES))
+    idEvento = models.AutoField(primary_key=True)
     nombre = models.CharField(_('Nombre'), max_length=50, null=False )
     descripcion = models.TextField(_('Descripción'))
     fechaInicio = models.DateTimeField(_('Fecha inicio'), auto_now=False, auto_now_add=False, null=False, validators=[validators.validate_date_start_event_before_now])
@@ -46,6 +47,7 @@ class Evento(models.Model):
 
 
 class Actividad(models.Model):
+    idActividad = models.AutoField(primary_key=True)
     fechaCreacion = models.DateField(auto_now_add=True, editable=False)
     nombre = models.CharField(max_length=50, null=False )
     descripcion = models.TextField(null=False)
@@ -64,6 +66,7 @@ class PreInscripcionEvento(models.Model):
     ESTADO_NAMES = (_('Aceptado'), _('Rechazado'))
     ESTADO_VALS = (ACEPTADO, RECHAZADO)
     ESTADO_TYPES = tuple(zip(ESTADO_VALS,ESTADO_NAMES))
+    idPreInscripcion = models.AutoField(primary_key=True)
     evento  = models.ForeignKey(Evento, on_delete=models.CASCADE, related_name='preinscripcionEvento_evento')
     participante = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='preinscripionEvneto_participante')
     fechaPreInscripcion = models.DateTimeField(auto_now_add=True, editable=False)
@@ -75,6 +78,7 @@ class InscripcionEvento(models.Model):
     ESTADO_NAMES = (_('Aceptado'), _('Rechazado'))
     ESTADO_VALS = (ACEPTADO, RECHAZADO)
     ESTADO_TYPES = tuple(zip(ESTADO_VALS, ESTADO_NAMES))
+    idInscripcion = models.AutoField(primary_key=True)
     fechaRegistro = models.DateField(auto_now_add=True, null=False, editable=False)
     fechaModificacion = models.DateField(auto_now_add=True, null=False, editable=False)
     estado = models.CharField(choices=ESTADO_TYPES, default=ACEPTADO, max_length=2)
@@ -82,6 +86,7 @@ class InscripcionEvento(models.Model):
     participante = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='inscripcionEvento_participante')
 
 class AsistenciaActividad(models.Model):
+    idAsistencia = models.AutoField(primary_key=True)
     participante = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='asistenciaActividad_participante')
     actividad = models.ForeignKey(Actividad, on_delete=models.CASCADE, null=False, related_name='asistenciaActividad_actividad')
     fechaModificacion = models.DateField(auto_now_add=True, null=False, editable=False)
