@@ -61,6 +61,9 @@ class Actividad(models.Model):
     )
 
 class PreInscripcionEvento(models.Model):
+    class Meta:
+            unique_together = (('evento', 'participante'),)
+
     ACEPTADO = _('A')
     RECHAZADO = _('R')
     ESTADO_NAMES = (_('Aceptado'), _('Rechazado'))
