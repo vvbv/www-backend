@@ -15,7 +15,27 @@ def api_root(request, format=None):
         'eventos': reverse('eventos-list', request=request, format=format)
     })
 
-class ActividadList(generics.ListCreateAPIView):
+class ActividadList(generics.ListAPIView):    
+    queryset = Actividad.objects.all()
+    serializer_class = ActividadSerializer
+    def get_queryset(self):
+        """
+        This view should return a list of all models by
+        the maker passed in the URL
+        """
+        evento = self.kwargs['evento']
+        return Actividad.objects.filter(evento=evento)
+class ActividadOptions(api):    
+    queryset = Actividad.objects.all()
+    serializer_class = ActividadSerializer
+    def get_queryset(self):
+        """
+        This view should return a list of all models by
+        the maker passed in the URL
+        """
+        evento = self.kwargs['evento']
+        return Actividad.objects.filter(evento=evento)    
+class ActivdadCreate(generics.CreateAPIView):    
     queryset = Actividad.objects.all()
     serializer_class = ActividadSerializer
 
