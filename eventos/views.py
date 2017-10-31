@@ -25,16 +25,7 @@ class ActividadList(generics.ListAPIView):
         """
         evento = self.kwargs['evento']
         return Actividad.objects.filter(evento=evento)
-class ActividadOptions(api):    
-    queryset = Actividad.objects.all()
-    serializer_class = ActividadSerializer
-    def get_queryset(self):
-        """
-        This view should return a list of all models by
-        the maker passed in the URL
-        """
-        evento = self.kwargs['evento']
-        return Actividad.objects.filter(evento=evento)    
+
 class ActivdadCreate(generics.CreateAPIView):    
     queryset = Actividad.objects.all()
     serializer_class = ActividadSerializer
