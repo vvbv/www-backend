@@ -11,3 +11,17 @@ def validate_now_before_date_finish_event(date):
         raise ValidationError(
             _('La fecha de finalizacion del evento ya ha pasado, no puede editarlo')
         )
+def evento_terminado(Evento):
+    if (Evento.estado == Evento.FINALIZADO):
+        raise ValidationError(
+            _('El evento ha finalizado')
+        )
+def evento_cancelado(Evento):
+    if (Evento.estado == Evento.CANCELADO):
+        raise ValidationError(
+            _('El evento ha sido cancelado')
+        )
+
+def evento_disponible(Evento):
+    evento_cancelado(Evento)
+    evento_disponible(Evento)
