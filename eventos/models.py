@@ -78,7 +78,7 @@ class InscripcionEvento(models.Model):
     RECHAZADO = _('R')
     ESPERA = _('E')
     ESTADO_NAMES = (_('Aceptado'), _('Rechazado'), _('En espera'))
-    ESTADO_VALS = (ACEPTADO, RECHAZADO)
+    ESTADO_VALS = (ACEPTADO, RECHAZADO, ESPERA)
     ESTADO_TYPES = tuple(zip(ESTADO_VALS, ESTADO_NAMES))
     fechaRegistro = models.DateField(auto_now_add=True, null=False, editable=False)
     fechaModificacion = models.DateField(auto_now_add=True, null=False, editable=False)
