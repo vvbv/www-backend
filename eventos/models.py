@@ -68,7 +68,7 @@ class PreInscripcionEvento(models.Model):
     ESTADO_NAMES = (_('Aceptado'), _('Rechazado'), _('En espera'))
     ESTADO_VALS = (ACEPTADO, RECHAZADO, ESPERA)
     ESTADO_TYPES = tuple(zip(ESTADO_VALS,ESTADO_NAMES))
-    evento  = models.ForeignKey(Evento, on_delete=models.CASCADE, related_name='preinscripcionEvento_evento')
+    evento  = models.ForeignKey(Evento, on_delete=models.CASCADE, related_name='preinscripcionEvento_evento', validators= [validators.evento_disponible])
     participante = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='preinscripionEvneto_participante')
     fechaPreInscripcion = models.DateTimeField(auto_now_add=True, editable=False)
     estado = models.CharField(null=False,choices=ESTADO_TYPES, default=RECHAZADO, max_length=2)
