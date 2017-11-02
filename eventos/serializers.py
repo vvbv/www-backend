@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Evento, Actividad, PreInscripcionEvento
+from .models import Evento, Actividad, PreInscripcionEvento, InscripcionEvento
 
 
 class EventoSerializer(serializers.ModelSerializer):
@@ -23,3 +23,8 @@ class PreInscripcionEventoSerializer(serializers.ModelSerializer):
     class Meta:
         model = PreInscripcionEvento
         fields = ('id', 'evento', 'participante', 'fechaPreInscripcion', 'estado')
+
+class InscripcionEventoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InscripcionEvento
+        fields = ('id', 'evento', 'participante', 'estado', 'fechaRegistro', 'fechaModificacion')
