@@ -178,7 +178,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')		
-STATIC_URL = '/static/'		  STATIC_URL = '/static/'
+STATIC_URL = '/static/'	
  		
  # Extra places for collectstatic to find static files.		
  STATICFILES_DIRS = (
