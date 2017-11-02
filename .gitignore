@@ -9,3 +9,6 @@ staticfiles
 *.mo
 imagenes/cargas/*
 
+imagenes/cargas/*
+.vscode/*
+static/*

@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework.authtoken',
-    'imagenes',
+    'imagenes'
+    #'django_extensions',
 ]
 
 
@@ -63,7 +64,7 @@ ROOT_URLCONF = 'www_backend.urls'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAdminUser',
+#        'rest_framework.permissions.IsAdminUser',
         'rest_framework.permissions.IsAuthenticated',
 
     ],
@@ -166,7 +167,6 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
 
 LOCALE_PATHS = [
     'locale',
@@ -179,13 +179,10 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.9/howto/static-files/
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+#STATIC_ROOT = os.path.join(BASE_DIR,'static')
 STATIC_URL = '/static/'
-
-# Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT, 'static'),
+                os.path.join(BASE_DIR,'static/'),
 )
+
+MEDIA_URL = '/'
