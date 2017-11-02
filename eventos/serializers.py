@@ -22,4 +22,4 @@ class ActividadSerializer(serializers.HyperlinkedModelSerializer):
 class PreInscripcionEventoSerializer(serializers.ModelSerializer):
     class Meta:
         model = PreInscripcionEvento
-        fields = ('idPreInscripcion', 'evento', 'participante', 'fechaPreInscripcion', 'estado')
+        fields = ('id', 'evento', 'participante', 'fechaPreInscripcion', 'estado')

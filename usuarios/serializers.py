@@ -10,9 +10,6 @@ from django.contrib.auth import get_user_model
 
 class UsuarioSerializer(serializers.ModelSerializer):
 
-    
-
-
     class Meta:
         model = Usuario
         fields = (
