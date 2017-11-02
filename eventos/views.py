@@ -66,3 +66,15 @@ class InscripcionEventoList(generics.ListCreateAPIView):
 class InscripcionEventoDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = InscripcionEvento.objects.all()
     serializer_class = InscripcionEventoSerializer
+
+class PreInscripcionEventoByIdUserIdEvent(generics.ListAPIView):
+    queryset = PreInscripcionEvento.objects.all()
+    serializer_class = PreInscripcionEventoSerializer
+    def get_queryset(self):
+        """
+        This view should return a list of all models by
+        the maker passed in the URL
+        """
+        evento = self.kwargs['evento']
+        usuario = self.kwargs['usuario']
+        return PreInscripcionEvento.objects.filter(evento=evento, participante=usuario)
