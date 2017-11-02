@@ -15,7 +15,7 @@ class Evento(models.Model):
     ESTADO_VALS = (FINALIZADO,SIN_INICIAR,CANCELADO)
     ESTADO_NAMES = (_('Finalizado'), _('Sin iniciar'), _('Cancelado'))
     ESTADO_TYPES=   tuple(zip(ESTADO_VALS, ESTADO_NAMES))
-    nombre = models.CharField(_('Nombre'), max_length=50, null=False )
+    nombre = models.CharField(_('Nombre del evento'), max_length=50, null=False )
     descripcion = models.TextField(_('Descripción'))
     fechaInicio = models.DateTimeField(_('Fecha inicio'), auto_now=False, auto_now_add=False, null=False, validators=[validators.validate_date_start_event_before_now])
     fechaFinalizacion = models.DateTimeField(_('Fecha finalización'), auto_now=False, auto_now_add=False, null=False) 
