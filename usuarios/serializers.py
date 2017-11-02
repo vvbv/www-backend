@@ -10,13 +10,10 @@ from django.contrib.auth import get_user_model
 
 class UsuarioSerializer(serializers.ModelSerializer):
 
-    
-
-
     class Meta:
         model = Usuario
         fields = (
-             'numero_identificacion', 'username', 'password', 'nombres', 'apellidos',
+            'id', 'numero_identificacion', 'username', 'password', 'nombres', 'apellidos',
             'imagenPerfil', 'rol', 'custom_email', 'estadoHabilitado',
             'groups', 'fechaHoraRegistro'
             )
