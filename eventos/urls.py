@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^eventos/preinscripciones/(?P<pk>[0-9]+)/$', views.PreInscripcionEventoDetail.as_view(), name = 'preinscripciones-detail'),
     url(r'^eventos/(?P<pk>[0-9]+)/$', views.EventoDetail.as_view(), name = 'evento-detail'),
     url(r'^actividades/(?P<pk>[0-9]+)/$', views.ActividadDetail.as_view(), name = 'actividad-detail'),
-    url(r'^actividades/$', views.ActividadList.as_view(), name = 'actividad-list'),
+    url(r'^actividades/porEvento/(?P<evento>\w+)/$', views.ActividadList.as_view(), name = 'actividad-list'),
+    url(r'^actividades/crear/$', views.ActivdadCreate.as_view(), name = 'actividad-create'),
 ]
