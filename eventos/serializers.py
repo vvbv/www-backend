@@ -12,7 +12,7 @@ class EventoSerializer(serializers.ModelSerializer):
         return attrs
     class Meta: 
         model = Evento
-        fields = ('id',     'nombre', 'descripcion', 'fechaInicio', 'fechaFinalizacion', 'estado', 'actividades', 'usuariosPreinscritos')
+        fields = ('id',     'nombre', 'descripcion', 'precio', 'fechaInicio', 'fechaFinalizacion', 'estado', 'actividades', 'usuariosPreinscritos')
     def get_estados(self, obj):
         return obj.get_estados_display()
    

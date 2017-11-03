@@ -17,6 +17,7 @@ class Evento(models.Model):
     ESTADO_TYPES=   tuple(zip(ESTADO_VALS, ESTADO_NAMES))
     nombre = models.CharField(_('Nombre del evento'), max_length=50, null=False )
     descripcion = models.TextField(_('Descripción'))
+    precio = models.IntegerField(_('Precio'), default=0,null=False)
     fechaInicio = models.DateTimeField(_('Fecha inicio'), auto_now=False, auto_now_add=False, null=False, validators=[validators.validate_date_start_event_before_now])
     fechaFinalizacion = models.DateTimeField(_('Fecha finalización'), auto_now=False, auto_now_add=False, null=False) 
     estado = models.CharField(max_length=2, choices=ESTADO_TYPES,default=SIN_INICIAR)
