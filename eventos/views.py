@@ -59,6 +59,11 @@ class PreInscripcionEventoDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = PreInscripcionEvento.objects.all()
     serializer_class = PreInscripcionEventoSerializer
 
+class PreInscripcionByEventApi(generics.ListAPIView):
+    lookup_field = 'evento'
+    queryset = PreInscripcionEvento.objects.all()
+    serializer_class =  PreInscripcionEventoSerializer
+
 class InscripcionEventoList(generics.ListCreateAPIView):
     queryset = InscripcionEvento.objects.all()
     serializer_class = InscripcionEventoSerializer
