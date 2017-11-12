@@ -32,11 +32,11 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'django.contrib.admin',
     'rest_framework',
+    'corsheaders',
     'eventos.apps.EventosConfig',
     'usuarios.apps.UsuariosConfig',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'corsheaders',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -142,6 +142,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+CORS_ORIGIN_ALLOW_ALL = True
+
 JWT_AUTH = { 
     'JWT_AUTH_HEADER_PREFIX': 'JWT',
     'JWT_ALLOW_REFRESH': True,
@@ -166,9 +168,6 @@ USE_L10N = True
 LOCALE_PATHS = [
     'locale',
 ]
-
-CORS_ORIGIN_ALLOW_ALL = True
-
 
 
 # Static files (CSS, JavaScript, Images)

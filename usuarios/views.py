@@ -13,7 +13,7 @@ from django.shortcuts import render
 # Create your views here.
 
 class UsuariosList(generics.ListAPIView):
-    queryset = Usuario.objects.all()
+    queryset = Usuario.objects.all().order_by('-fechaHoraRegistro')
     serializer_class = UsuarioSerializer
 
 class UsuarioPkApi(generics.RetrieveUpdateDestroyAPIView):

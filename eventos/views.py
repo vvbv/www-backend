@@ -16,7 +16,7 @@ def api_root(request, format=None):
     })
 
 class ActividadList(generics.ListAPIView):    
-    queryset = Actividad.objects.all()
+    queryset = Actividad.objects.all().order_by('fechaInicio')
     serializer_class = ActividadSerializer
     def get_queryset(self):
         """
@@ -40,7 +40,7 @@ class ActividadDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ActividadSerializer
 
 class EventoList(generics.ListCreateAPIView):
-    queryset = Evento.objects.all()
+    queryset = Evento.objects.all().order_by('fechaInicio')
     serializer_class = EventoSerializer
 
 class EventoDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -52,7 +52,7 @@ class EventoEstadoChoicesViewSet(APIView):
         return Response(Evento.ESTADO_TYPES)
 
 class PreInscripcionEventoList(generics.ListCreateAPIView):
-    queryset = PreInscripcionEvento.objects.all()
+    queryset = PreInscripcionEvento.objects.all().order_by('fechaPreInscripcion')
     serializer_class = PreInscripcionEventoSerializer
 
 class PreInscripcionEventoDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -65,7 +65,7 @@ class PreInscripcionByEventApi(generics.ListAPIView):
     serializer_class =  PreInscripcionEventoSerializer
 
 class InscripcionEventoList(generics.ListCreateAPIView):
-    queryset = InscripcionEvento.objects.all()
+    queryset = InscripcionEvento.objects.all().order_by('fechaRegistro')
     serializer_class = InscripcionEventoSerializer
 
 class InscripcionEventoDetail(generics.RetrieveUpdateDestroyAPIView):

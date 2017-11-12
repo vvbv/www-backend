@@ -17,7 +17,7 @@ class UsuarioSerializer(serializers.ModelSerializer):
             'imagenPerfil', 'rol', 'custom_email', 'estadoHabilitado',
             'groups', 'fechaHoraRegistro'
             )
-        ordering = ['-id']
+        ordering = ['fechaHoraRegistro']
 
     def create(self, validated_data):
         user = super().create(validated_data)
