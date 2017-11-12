@@ -24,6 +24,7 @@ from rest_framework_jwt.views import verify_jwt_token
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/v1/', include('eventos.urls')),
+    url(r'^api/v1/funcionesExtra/', include('funciones_extra.urls')),
     url(r'^api/v1/usuarios/', include('usuarios.urls')),
     url(r'^api/v1/imagenes/', include('imagenes.urls')),
     url(r'^api/v1/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
