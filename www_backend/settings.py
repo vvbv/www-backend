@@ -150,6 +150,12 @@ JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3000),
 }
 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'iedb.tinker.apps.do.not.reply@gmail.com'
+EMAIL_HOST_PASSWORD = 'iedb.password'
+EMAIL_USE_TLS = True
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 LANGUAGES = (
