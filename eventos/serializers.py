@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from usuarios.serializers import UsuarioSerializer
-from .models import Evento, Actividad, PreInscripcionEvento, InscripcionEvento
+from .models import Evento, Actividad, PreInscripcionEvento, InscripcionEvento, Noticia
 
 
 class EventoSerializer(serializers.ModelSerializer):
@@ -12,7 +12,7 @@ class EventoSerializer(serializers.ModelSerializer):
         return attrs
     class Meta: 
         model = Evento
-        fields = ('id',     'nombre', 'descripcion', 'precio', 'fechaInicio', 'fechaFinalizacion', 'estado', 'actividades', 'usuariosPreinscritos')
+        fields = ('id',     'nombre',  'descripcion', 'precio', 'fechaInicio', 'fechaFinalizacion', 'estado', 'actividades', 'usuariosPreinscritos', 'imagen')
     def get_estados(self, obj):
         return obj.get_estados_display()
    
@@ -30,3 +30,8 @@ class InscripcionEventoSerializer(serializers.ModelSerializer):
     class Meta:
         model = InscripcionEvento
         fields = ('id', 'evento', 'participante', 'estado', 'fechaRegistro', 'fechaModificacion')
+
+class NoticiaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Noticia
+        fields = ('id', 'titulo', 'resumen', 'contenido', 'imagen', 'fechaRegistro', 'fechaModificacion', 'usuarioRegistra', 'estado')

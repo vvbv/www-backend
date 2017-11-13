@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from rest_framework import viewsets, generics
-from .models import Evento, Actividad, PreInscripcionEvento, InscripcionEvento
-from .serializers import EventoSerializer, ActividadSerializer, PreInscripcionEventoSerializer, InscripcionEventoSerializer
+from .models import Evento, Actividad, PreInscripcionEvento, InscripcionEvento, Noticia
+from .serializers import EventoSerializer, ActividadSerializer, PreInscripcionEventoSerializer, InscripcionEventoSerializer, NoticiaSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
@@ -39,9 +39,19 @@ class ActividadDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Actividad.objects.all()
     serializer_class = ActividadSerializer
 
+class NoticiasList(generics.ListCreateAPIView):
+    queryset = Noticia.objects.all()
+    serializer_class = NoticiaSerializer
+
+class NoticiaDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Noticia.objects.all() 
+    serializer_class = NoticiaSerializer
+
 class EventoList(generics.ListCreateAPIView):
     queryset = Evento.objects.all().order_by('fechaInicio')
     serializer_class = EventoSerializer
+    #def post(self, request):
+    #    print(request.query_params['file'])
 
 class EventoDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Evento.objects.all() 
