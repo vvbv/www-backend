@@ -15,12 +15,14 @@ class Evento(models.Model):
     ESTADO_VALS = (FINALIZADO,SIN_INICIAR,CANCELADO)
     ESTADO_NAMES = (_('Finalizado'), _('Sin iniciar'), _('Cancelado'))
     ESTADO_TYPES=   tuple(zip(ESTADO_VALS, ESTADO_NAMES))
+    
     nombre = models.CharField(_('Nombre del evento'), max_length=50, null=False )
     descripcion = models.TextField(_('Descripción'))
     precio = models.IntegerField(_('Precio'), default=0,null=False)
     fechaInicio = models.DateTimeField(_('Fecha inicio'), auto_now=False, auto_now_add=False, null=False, validators=[validators.validate_date_start_event_before_now])
     fechaFinalizacion = models.DateTimeField(_('Fecha finalización'), auto_now=False, auto_now_add=False, null=False) 
     estado = models.CharField(max_length=2, choices=ESTADO_TYPES,default=SIN_INICIAR)
+    imagen = models.ImageField(_('Imagen'), null=True, upload_to='static/imagenes/eventos')
     usuariosPreinscritos = models.ManyToManyField(
                                      Usuario,
                                      through='PreInscripcionEvento',
@@ -92,3 +94,13 @@ class AsistenciaActividad(models.Model):
     actividad = models.ForeignKey(Actividad, on_delete=models.CASCADE, null=False, related_name='asistenciaActividad_actividad')
     fechaModificacion = models.DateField(auto_now_add=True, null=False, editable=False)
     fechaRegistro = models.DateField(auto_now_add=True, null=False, editable=False )
+
+class Noticia(models.Model):
+    titulo = models.CharField(_('Titulo'), max_length = 100, null=False)
+    resumen = models.TextField(_('Descripción'))
+    contenido = models.TextField(_('Contenido'), default = '', null =False)
+    imagen = models.ImageField(_('Imagen'), null=False, upload_to='static/imagenes/noticias')
+    fechaRegistro = models.DateField(auto_now_add=True, null=False, editable=False )
+    usuarioRegistra = models.ForeignKey(Usuario, on_delete = models.CASCADE, related_name='noticia_usuario_registra')
+    fechaModificacion = models.DateField(auto_now_add=True, null=False, editable=False)
+    estado = models.BooleanField(_('Estado'), null=False, default= True)

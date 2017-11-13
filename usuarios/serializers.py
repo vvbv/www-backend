@@ -5,11 +5,12 @@ from rest_framework import serializers
 from usuarios.models import Usuario
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import get_user_model
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
 
-
-
+@permission_classes((AllowAny, ))
 class UsuarioSerializer(serializers.ModelSerializer):
-
+    permission_classes = (AllowAny,)
     class Meta:
         model = Usuario
         fields = (
