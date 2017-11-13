@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^noticias/$', views.NoticiasList.as_view(), name = 'noticia-list'),
     url(r'^eventos/preinscripciones/$', views.PreInscripcionEventoList.as_view(), name = 'preinscripciones-list'),
     url(r'^eventos/preinscripciones/(?P<pk>[0-9]+)/$', views.PreInscripcionEventoDetail.as_view(), name = 'preinscripciones-detail'),
+    url(r'^eventos/preinscripciones/byEvent/(?P<evento>[0-9]+)/$', views.PreInscripcionByEventApi.as_view(), name = 'preinscripciones-by-event-list'),
     url(r'^eventos/inscripciones/$', views.InscripcionEventoList.as_view(), name = 'inscripciones-list'),
     url(r'^eventos/inscripciones/(?P<pk>[0-9]+)/$', views.InscripcionEventoDetail.as_view(), name = 'inscripciones-detail'),
     url(r'^eventos/(?P<pk>[0-9]+)/$', views.EventoDetail.as_view(), name = 'evento-detail'),
