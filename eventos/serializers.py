@@ -22,6 +22,7 @@ class ActividadSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'nombre', 'descripcion', 'fechaInicio', 'fechaFinalizacion',)
 
 class PreInscripcionEventoSerializer(serializers.ModelSerializer):
+    participante = UsuarioSerializer(read_only=True)
     class Meta:
         model = PreInscripcionEvento
         fields = ('id', 'evento', 'participante', 'fechaPreInscripcion', 'estado')

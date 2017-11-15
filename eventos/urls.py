@@ -12,9 +12,11 @@ urlpatterns = [
     url(r'^eventos/inscripciones/$', views.InscripcionEventoList.as_view(), name = 'inscripciones-list'),
     url(r'^eventos/inscripciones/(?P<pk>[0-9]+)/$', views.InscripcionEventoDetail.as_view(), name = 'inscripciones-detail'),
     url(r'^eventos/(?P<pk>[0-9]+)/$', views.EventoDetail.as_view(), name = 'evento-detail'),
+    url(r'^eventos/usuariosPreInscritos/(?P<evento>[0-9]+)/$', views.UsuariosPreInscritosEvento.as_view(), name = 'usuarios-preinscritos-evento'),
     url(r'^noticias/(?P<pk>[0-9]+)/$', views.NoticiaDetail.as_view(), name = 'noticia-detail'),
     url(r'^actividades/(?P<pk>[0-9]+)/$', views.ActividadDetail.as_view(), name = 'actividad-detail'),
     url(r'^actividades/porEvento/(?P<evento>\w+)/$', views.ActividadList.as_view(), name = 'actividad-list'),
+    
     url(r'^getIdPreinscripcion/porIdUsuarioIdEvento/(?P<usuario>\w+)/(?P<evento>\w+)/$', views.PreInscripcionEventoByIdUserIdEvent.as_view(), name = 'id-preInscripcionIdEventoIdUsuario'),
     url(r'^actividades/crear/$', views.ActivdadCreate.as_view(), name = 'actividad-create'),
 ]

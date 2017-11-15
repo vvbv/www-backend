@@ -97,8 +97,8 @@ class AsistenciaActividad(models.Model):
 
 class Noticia(models.Model):
     titulo = models.CharField(_('Titulo'), max_length = 100, null=False)
-    resumen = models.TextField(_('Descripción'))
-    contenido = models.TextField(_('Contenido'), default = '', null =False)
+    resumen = models.TextField(_('Descripción'), null=False)
+    contenido = models.TextField(_('Contenido'), null =False)
     imagen = models.ImageField(_('Imagen'), null=False, upload_to='static/imagenes/noticias')
     fechaRegistro = models.DateField(auto_now_add=True, null=False, editable=False )
     usuarioRegistra = models.ForeignKey(Usuario, on_delete = models.CASCADE, related_name='noticia_usuario_registra')
