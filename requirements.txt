@@ -1,4 +1,4 @@
- djangorestframework
+ djangorestframework==3.7.3
  djangorestframework-jwt
  django-cors-headers
  psycopg2
