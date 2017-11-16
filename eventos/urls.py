@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^eventos/preinscripciones/$', views.PreInscripcionEventoList.as_view(), name = 'preinscripciones-list'),
     url(r'^eventos/preinscripciones/(?P<pk>[0-9]+)/$', views.PreInscripcionEventoDetail.as_view(), name = 'preinscripciones-detail'),
     url(r'^eventos/preinscripciones/byEvent/(?P<evento>[0-9]+)/$', views.PreInscripcionByEventApi.as_view(), name = 'preinscripciones-by-event-list'),
+    url(r'^eventos/inscripciones/byEvent/(?P<evento>[0-9]+)/$', views.InscripcionByEventApi.as_view(), name = 'inscripciones-by-event-list'),
     url(r'^eventos/inscripciones/$', views.InscripcionEventoList.as_view(), name = 'inscripciones-list'),
     url(r'^eventos/inscripciones/(?P<pk>[0-9]+)/$', views.InscripcionEventoDetail.as_view(), name = 'inscripciones-detail'),
     url(r'^eventos/(?P<pk>[0-9]+)/$', views.EventoDetail.as_view(), name = 'evento-detail'),
@@ -17,6 +18,7 @@ urlpatterns = [
     url(r'^actividades/(?P<pk>[0-9]+)/$', views.ActividadDetail.as_view(), name = 'actividad-detail'),
     url(r'^actividades/porEvento/(?P<evento>\w+)/$', views.ActividadList.as_view(), name = 'actividad-list'),
     
-    url(r'^getIdPreinscripcion/porIdUsuarioIdEvento/(?P<usuario>\w+)/(?P<evento>\w+)/$', views.PreInscripcionEventoByIdUserIdEvent.as_view(), name = 'id-preInscripcionIdEventoIdUsuario'),
+    url(r'^getPreinscripcion/porIdUsuarioIdEvento/(?P<usuario>\w+)/(?P<evento>\w+)/$', views.PreInscripcionEventoByIdUserIdEvent.as_view(), name = 'id-preInscripcionIdEventoIdUsuario'),
+    url(r'^getInscripcion/porIdUsuarioIdEvento/(?P<usuario>\w+)/(?P<evento>\w+)/$', views.InscripcionEventoByIdUserIdEvent.as_view(), name = 'id-InscripcionIdEventoIdUsuario'),
     url(r'^actividades/crear/$', views.ActivdadCreate.as_view(), name = 'actividad-create'),
 ]

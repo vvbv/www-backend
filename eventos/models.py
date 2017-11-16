@@ -68,15 +68,19 @@ class PreInscripcionEvento(models.Model):
     ACEPTADO = _('A')
     RECHAZADO = _('R')
     ESPERA = _('E')
-    ESTADO_NAMES = (_('Aceptado'), _('Rechazado'), _('En espera'))
-    ESTADO_VALS = (ACEPTADO, RECHAZADO, ESPERA)
+    INSCRITO = _('I')
+    ESTADO_NAMES = (_('Aceptado'), _('Rechazado'), _('En espera'), _('Inscrito'))
+    ESTADO_VALS = (ACEPTADO, RECHAZADO, ESPERA, INSCRITO)
     ESTADO_TYPES = tuple(zip(ESTADO_VALS,ESTADO_NAMES))
     evento  = models.ForeignKey(Evento, on_delete=models.CASCADE, related_name='preinscripcionEvento_evento')
     participante = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='preinscripionEvneto_participante')
     fechaPreInscripcion = models.DateTimeField(auto_now_add=True, editable=False)
-    estado = models.CharField(null=False,choices=ESTADO_TYPES, default=RECHAZADO, max_length=2)
+    estado = models.CharField(null=False,choices=ESTADO_TYPES, default=ESPERA, max_length=2)
 
 class InscripcionEvento(models.Model):
+    class Meta:
+        unique_together = (('evento', 'participante'),)
+    
     ACEPTADO = _('A')
     RECHAZADO = _('R')
     ESPERA = _('E')
@@ -85,7 +89,7 @@ class InscripcionEvento(models.Model):
     ESTADO_TYPES = tuple(zip(ESTADO_VALS, ESTADO_NAMES))
     fechaRegistro = models.DateField(auto_now_add=True, null=False, editable=False)
     fechaModificacion = models.DateField(auto_now_add=True, null=False, editable=False)
-    estado = models.CharField(choices=ESTADO_TYPES, default=ACEPTADO, max_length=2)
+    estado = models.CharField(choices=ESTADO_TYPES, default=ESPERA, max_length=2)
     evento  = models.ForeignKey(Evento, on_delete=models.CASCADE, related_name='inscripcionEvento_evento')
     participante = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='inscripcionEvento_participante')
 
