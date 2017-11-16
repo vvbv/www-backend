@@ -63,36 +63,56 @@ class Actividad(models.Model):
 
 class PreInscripcionEvento(models.Model):
     class Meta:
-            unique_together = (('evento', 'participante'),)
+        unique_together = (('evento', 'participante'),)
 
     ACEPTADO = _('A')
     RECHAZADO = _('R')
-    ESPERA = _('E')
-    INSCRITO_ESPERA = _('PI')
-    INSCRITO = _('I')
-    ESTADO_NAMES = (_('Aceptado'), _('Rechazado'), _('En espera'), _('Inscrito'), _('Preinscrito'))
-    ESTADO_VALS = (ACEPTADO, RECHAZADO, ESPERA, INSCRITO)
+    ESPERA_APROVACION = _('EA')
+    ESPERA_INSCRIPCION = _('EI')
+    ESPERA_CONFIRMACION_USUARIO = _('EC')
+    ESPERA_PAGO = _('EP')
+    INSCRIPCION_RECHAZADA = _('IR')
+    PAGADO = _('P')
+    ESTADO_NAMES = (_('Aceptado'), _('Rechazado'),  _('Revision pendiente'),
+    _('Revisión de inscripción pendiente'),
+    _('Inscripcion rechazada'),
+    _('A la espera de confimación del usuario'), _('Pago pendiente'), 
+    _('Pago registrado'))
+
+    ESTADO_VALS = (ACEPTADO, RECHAZADO, ESPERA_APROVACION, ESPERA_INSCRIPCION, INSCRIPCION_RECHAZADA,
+    ESPERA_CONFIRMACION_USUARIO,  ESPERA_PAGO, PAGADO)
     ESTADO_TYPES = tuple(zip(ESTADO_VALS,ESTADO_NAMES))
     evento  = models.ForeignKey(Evento, on_delete=models.CASCADE, related_name='preinscripcionEvento_evento')
     participante = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='preinscripionEvneto_participante')
     fechaPreInscripcion = models.DateTimeField(auto_now_add=True, editable=False)
-    estado = models.CharField(null=False,choices=ESTADO_TYPES, default=ESPERA, max_length=2)
-
+    estado = models.CharField(null=False,choices=ESTADO_TYPES, default=ESPERA_APROVACION, max_length=2)
+    def cambiarAEsperaInscripcion(self):
+        self.estado = self.ESPERA_INSCRIPCION
+    def cambiarAEsperaPago(self):
+        self.estado = self.ESPERA_PAGO
+    def cambiarAPagado(self):
+        self.estado = self.PAGADO
+    def cambiarAInscripcionRechazada(self):
+        self.estado = self.INSCRIPCION_RECHAZADA
+    def cambiarAEsperaConfirmacionUsuario(self):
+        self.estado = self.ESPERA_CONFIRMACION_USUARIO
 class InscripcionEvento(models.Model):
     class Meta:
-        unique_together = (('evento', 'participante'),)
-    
+        unique_together = (('evento', 'participante'))
     ACEPTADO = _('A')
+    ESPERA_PAGO = _('EP')
+    PAGADO = _('P')
     RECHAZADO = _('R')
-    ESPERA = _('E')
-    ESTADO_NAMES = (_('Aceptado'), _('Rechazado'), _('En espera'))
-    ESTADO_VALS = (ACEPTADO, RECHAZADO, ESPERA)
+    ESPERA_APROVACION = _('EA')
+    ESTADO_NAMES = (_('Aceptado'), _('Rechazado'), _('En espera'), _('En espera de pago'), _('Pagado'))
+    ESTADO_VALS = (ACEPTADO, RECHAZADO, ESPERA_APROVACION, ESPERA_PAGO, PAGADO)
     ESTADO_TYPES = tuple(zip(ESTADO_VALS, ESTADO_NAMES))
     fechaRegistro = models.DateField(auto_now_add=True, null=False, editable=False)
     fechaModificacion = models.DateField(auto_now_add=True, null=False, editable=False)
-    estado = models.CharField(choices=ESTADO_TYPES, default=ESPERA, max_length=2)
+    estado = models.CharField(choices=ESTADO_TYPES, default=ESPERA_APROVACION, max_length=2)
     evento  = models.ForeignKey(Evento, on_delete=models.CASCADE, related_name='inscripcionEvento_evento')
     participante = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='inscripcionEvento_participante')
+
 
 class AsistenciaActividad(models.Model):
     participante = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='asistenciaActividad_participante')
