@@ -71,9 +71,18 @@ class PreInscripcionEventoDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class PreInscripcionByEventApi(generics.ListAPIView):
-    lookup_field = 'evento'
     queryset = PreInscripcionEvento.objects.all()
+    def get_queryset(self):
+        evento = self.kwargs['evento']
+        return  PreInscripcionEvento.objects.filter(evento=evento)
     serializer_class =  PreInscripcionEventoSerializer
+
+
+class InscripcionByEventApi(generics.ListAPIView):
+    def get_queryset(self):
+        evento = self.kwargs['evento']
+        return  InscripcionEvento.objects.filter(evento=evento)
+    serializer_class =  InscripcionEventoSerializer
 
 class InscripcionEventoList(generics.ListCreateAPIView):
     queryset = InscripcionEvento.objects.all().order_by('fechaRegistro')
@@ -95,6 +104,17 @@ class PreInscripcionEventoByIdUserIdEvent(generics.ListAPIView):
         usuario = self.kwargs['usuario']
         return PreInscripcionEvento.objects.filter(evento=evento, participante=usuario)
 
+class InscripcionEventoByIdUserIdEvent(generics.ListAPIView):
+    queryset = InscripcionEvento.objects.all()
+    serializer_class = PreInscripcionEventoSerializer
+    def get_queryset(self):
+        """
+        This view should return a list of all models by
+        the maker passed in the URL
+        """
+        evento = self.kwargs['evento']
+        usuario = self.kwargs['usuario']
+        return InscripcionEvento.objects.filter(evento=evento, participante=usuario)
 
 class UsuariosPreInscritosEvento(generics.ListAPIView):
     queryset = PreInscripcionEvento.objects.all().prefetch_related('participante')
