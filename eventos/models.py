@@ -22,7 +22,7 @@ class Evento(models.Model):
     fechaInicio = models.DateTimeField(_('Fecha inicio'), auto_now=False, auto_now_add=False, null=False, validators=[validators.validate_date_start_event_before_now])
     fechaFinalizacion = models.DateTimeField(_('Fecha finalización'), auto_now=False, auto_now_add=False, null=False) 
     estado = models.CharField(max_length=2, choices=ESTADO_TYPES,default=SIN_INICIAR)
-    imagen = models.ImageField(_('Imagen'), null=False, upload_to='static/imagenes/eventos')
+    imagen = models.ImageField(_('Imagen'), null=False, default=0, upload_to='static/imagenes/eventos')
     usuariosPreinscritos = models.ManyToManyField(
                                      Usuario,
                                      through='PreInscripcionEvento',
@@ -73,7 +73,7 @@ class PreInscripcionEvento(models.Model):
     ESPERA_PAGO = _('EP')
     INSCRIPCION_RECHAZADA = _('IR')
     PAGADO = _('P')
-    ESTADO_NAMES = (_('Aceptado'), _('Rechazado'),  _('Revision pendiente'),
+    ESTADO_NAMES = (_('Preinscripción aceptada'), _('Preinscripcion rechazada'),  _('Revision de preinscripcion pendiente'),
     _('Revisión de inscripción pendiente'),
     _('Inscripcion rechazada'),
     _('A la espera de confimación del usuario'), _('Pago pendiente'), 
