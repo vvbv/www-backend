@@ -2,7 +2,6 @@ from django.conf.urls import url
 from eventos import views
 
 urlpatterns = [
-    url(r'^$', views.api_root),
     url(r'^eventos/estados/$', views.EventoEstadoChoicesViewSet.as_view(), name='estado_eventos_list'),
     url(r'^eventos/$', views.EventoList.as_view(), name = 'eventos-list'),
     url(r'^noticias/$', views.NoticiasList.as_view(), name = 'noticia-list'),
@@ -21,4 +20,7 @@ urlpatterns = [
     url(r'^getPreinscripcion/porIdUsuarioIdEvento/(?P<usuario>\w+)/(?P<evento>\w+)/$', views.PreInscripcionEventoByIdUserIdEvent.as_view(), name = 'id-preInscripcionIdEventoIdUsuario'),
     url(r'^getInscripcion/porIdUsuarioIdEvento/(?P<usuario>\w+)/(?P<evento>\w+)/$', views.InscripcionEventoByIdUserIdEvent.as_view(), name = 'id-InscripcionIdEventoIdUsuario'),
     url(r'^actividades/crear/$', views.ActivdadCreate.as_view(), name = 'actividad-create'),
+    url(r'^actividades/$', views.ActividadAllList.as_view(), name = 'actividad-all-list'),
+    url(r'^actividades/byEvent/(?P<evento>[0-9]+)/$', views.ActividadList.as_view(), name = 'actividad-byEvent-list'),
+    url(r'^asistencias/$', views.AsistenciaActividadList.as_view(), name = 'asistencia-all-list'),
 ]

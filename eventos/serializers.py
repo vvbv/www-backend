@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from usuarios.serializers import UsuarioSerializer
-from .models import Evento, Actividad, PreInscripcionEvento, InscripcionEvento, Noticia
+from .models import Evento, Actividad, PreInscripcionEvento, InscripcionEvento, Noticia, AsistenciaActividad, Usuario
 
 
 class EventoSerializer(serializers.ModelSerializer):
@@ -19,7 +19,7 @@ class EventoSerializer(serializers.ModelSerializer):
 class ActividadSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Actividad   
-        fields = ('id', 'nombre', 'descripcion', 'fechaInicio', 'fechaFinalizacion',)
+        fields = ('id', 'nombre', 'descripcion', 'fechaInicio', 'fechaFinalizacion', 'evento', 'asistentes')
 
 class PreInscripcionEventoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -35,3 +35,8 @@ class NoticiaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Noticia
         fields = ('id', 'titulo', 'resumen', 'contenido', 'imagen', 'fechaRegistro', 'fechaModificacion', 'usuarioRegistra', 'estado')
+
+class AsistenciaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AsistenciaActividad
+        fields = ('id', 'participante', 'actividad', 'fechaModificacion', 'fechaRegistro')
