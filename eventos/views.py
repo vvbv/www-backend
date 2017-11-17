@@ -1,19 +1,18 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from rest_framework import viewsets, generics
-from .models import Evento, Actividad, PreInscripcionEvento, InscripcionEvento, Noticia
-from .serializers import EventoSerializer, ActividadSerializer, PreInscripcionEventoSerializer, InscripcionEventoSerializer, NoticiaSerializer
+from .models import Evento, Actividad, PreInscripcionEvento, InscripcionEvento, Noticia, AsistenciaActividad
+from .serializers import EventoSerializer, ActividadSerializer, PreInscripcionEventoSerializer, InscripcionEventoSerializer, NoticiaSerializer, AsistenciaSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.views import APIView
 from usuarios.serializers import UsuarioSerializer
-@api_view(['GET'])
-def api_root(request, format=None):
-    return Response({
-        'actividades': reverse('actividad-list', request=request, format=format),
-        'eventos': reverse('eventos-list', request=request, format=format)
-    })
+
+
+class AsistenciaActividadList(generics.ListCreateAPIView):    
+    queryset = AsistenciaActividad.objects.all().order_by('fechaRegistro')
+    serializer_class = AsistenciaSerializer
 
 class ActividadList(generics.ListAPIView):    
     queryset = Actividad.objects.all().order_by('fechaInicio')
@@ -25,6 +24,10 @@ class ActividadList(generics.ListAPIView):
         """
         evento = self.kwargs['evento']
         return Actividad.objects.filter(evento=evento)
+
+class ActividadAllList(generics.ListCreateAPIView):    
+    queryset = Actividad.objects.all().order_by('fechaInicio')
+    serializer_class = ActividadSerializer
 
 class ActivdadCreate(generics.CreateAPIView):    
     queryset = Actividad.objects.all()
