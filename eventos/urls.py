@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^actividades/$', views.ActividadAllList.as_view(), name = 'actividad-all-list'),
     url(r'^actividades/byEvent/(?P<evento>[0-9]+)/$', views.ActividadList.as_view(), name = 'actividad-byEvent-list'),
     url(r'^asistencias/$', views.AsistenciaActividadList.as_view(), name = 'asistencia-all-list'),
+    url(r'^asistencias/(?P<pk>[0-9]+)/$', views.AsistenciaActividadDetail.as_view(), name = 'asistencia-all-list'),
 ]

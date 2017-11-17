@@ -10,6 +10,9 @@ from rest_framework.views import APIView
 from rest_framework import status
 from usuarios.serializers import UsuarioSerializer
 
+class AsistenciaActividadDetail(generics.RetrieveAPIView):    
+    queryset = AsistenciaActividad.objects.all()
+    serializer_class = AsistenciaSerializer
 
 class AsistenciaActividadList(generics.ListAPIView):    
     queryset = AsistenciaActividad.objects.all().order_by('fechaRegistro')
