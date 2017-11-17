@@ -66,9 +66,26 @@ class PreInscripcionEventoList(generics.ListCreateAPIView):
     queryset = PreInscripcionEvento.objects.all().order_by('fechaPreInscripcion')
     serializer_class = PreInscripcionEventoSerializer
 
+class UsuariosPreinscritosPorEvento(generics.APIView):
+    
+
 class PreInscripcionEventoDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = PreInscripcionEvento.objects.all()
     serializer_class = PreInscripcionEventoSerializer
+
+    def put(self, request, pk, format=None):
+        inscripcion = InscripcionEvento()
+        serializer = InscripcionEventoSerializer(inscripcion, data=request.data)
+        preInscripcion = self.get_object()
+        print(preInscripcion.evento)
+        if(preInscripcion.estado == preInscripcion.ACEPTADO):
+            inscripcion.evento = preInscripcion.evento
+            inscripcion.participante = inscripcion.participante
+            inscripcion.save()
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class PreInscripcionByEventApi(generics.ListAPIView):
@@ -95,6 +112,7 @@ class InscripcionEventoDetail(generics.RetrieveUpdateDestroyAPIView):
 
     def put(self, request, pk, format=None):
         inscripcion = self.get_object()
+        serializer = InscripcionEventoSerializer(inscripcion, data=request.data)
         if(inscripcion.estado == inscripcion.ACEPTADO):
             preinscripcion = PreInscripcionEvento.objects.get(participante=inscripcion.participante, evento=inscripcion.evento)
             preinscripcion.cambiarAEsperaConfirmacionUsuario()
@@ -111,7 +129,6 @@ class InscripcionEventoDetail(generics.RetrieveUpdateDestroyAPIView):
             preinscripcion = PreInscripcionEvento.objects.get(participante=inscripcion.participante, evento=inscripcion.evento)
             preinscripcion.cambiarAInscripcionRechazada()
             preinscripcion.save()
-        serializer = InscripcionEventoSerializer(inscripcion, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
