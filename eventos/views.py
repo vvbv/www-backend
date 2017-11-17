@@ -66,8 +66,12 @@ class PreInscripcionEventoList(generics.ListCreateAPIView):
     queryset = PreInscripcionEvento.objects.all().order_by('fechaPreInscripcion')
     serializer_class = PreInscripcionEventoSerializer
 
-class UsuariosPreinscritosPorEvento(generics.APIView):
-    
+class UsuariosPreinscritosPorEvento(generics.ListAPIView):
+    def get_queryset(self):
+        evento = kwargs['evento']
+        evetoObj = Evento.objects.get(id=evento)
+        
+
 
 class PreInscripcionEventoDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = PreInscripcionEvento.objects.all()
