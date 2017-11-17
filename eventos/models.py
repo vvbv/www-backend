@@ -115,6 +115,8 @@ class InscripcionEvento(models.Model):
 
 
 class AsistenciaActividad(models.Model):
+    class Meta:
+        unique_together = ('participante', 'actividad')
     participante = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='asistenciaActividad_participante')
     actividad = models.ForeignKey(Actividad, on_delete=models.CASCADE, null=False, related_name='asistenciaActividad_actividad')
     fechaModificacion = models.DateTimeField(auto_now_add=True, null=False, editable=False)
