@@ -180,13 +180,10 @@ LOCALE_PATHS = [
     'locale',
 ]
 
-<<<<<<< HEAD
 CORS_ORIGIN_ALLOW_ALL = True
 
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-=======
->>>>>>> alpha
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')		
 STATIC_URL = '/static/'	

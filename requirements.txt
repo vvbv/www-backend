@@ -1,17 +1,8 @@
-<<<<<<< HEAD
- Django==1.11.1
-djangorestframework
- djangorestframework-jwt
- django-cors-headers
- psycopg2
  gunicorn
- Pillow
  whitenoise
-=======
  djangorestframework==3.7.3
  djangorestframework-jwt 
  django-cors-headers
  psycopg2 == 2.7.3
  Pillow == 4.3.0
  Django==1.11.7
->>>>>>> alpha
