@@ -94,10 +94,14 @@ class InscripcionEvento(models.Model):
     participante = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='inscripcionEvento_participante')
 
 class AsistenciaActividad(models.Model):
+    class Meta:
+        unique_together = ('participante', 'actividad')
+        
     participante = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='asistenciaActividad_participante')
     actividad = models.ForeignKey(Actividad, on_delete=models.CASCADE, null=False, related_name='asistenciaActividad_actividad')
     fechaModificacion = models.DateField(auto_now_add=True, null=False, editable=False)
     fechaRegistro = models.DateField(auto_now_add=True, null=False, editable=False )
+    
 
 class Noticia(models.Model):
     titulo = models.CharField(_('Titulo'), max_length = 100, null=False)
