@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from usuarios.serializers import UsuarioSerializer
-from .models import Evento, Actividad, PreInscripcionEvento, InscripcionEvento
+from .models import Evento, Actividad, PreInscripcionEvento, InscripcionEvento, Noticia, AsistenciaActividad, Usuario
 
 
 class EventoSerializer(serializers.ModelSerializer):
@@ -12,14 +12,14 @@ class EventoSerializer(serializers.ModelSerializer):
         return attrs
     class Meta: 
         model = Evento
-        fields = ('id',     'nombre', 'descripcion', 'precio', 'fechaInicio', 'fechaFinalizacion', 'estado', 'actividades', 'usuariosPreinscritos')
+        fields = ('id', 'nombre',  'descripcion', 'precio', 'fechaInicio', 'fechaFinalizacion', 'estado', 'actividades', 'usuariosPreinscritos', 'imagen')
     def get_estados(self, obj):
         return obj.get_estados_display()
    
 class ActividadSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Actividad   
-        fields = ('id', 'nombre', 'descripcion', 'fechaInicio', 'fechaFinalizacion',)
+        fields = ('id', 'nombre', 'descripcion', 'fechaInicio', 'fechaFinalizacion', 'evento')
 
 class PreInscripcionEventoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -29,4 +29,14 @@ class PreInscripcionEventoSerializer(serializers.ModelSerializer):
 class InscripcionEventoSerializer(serializers.ModelSerializer):
     class Meta:
         model = InscripcionEvento
-        fields = ('id', 'evento', 'participante', 'estado', 'fechaRegistro', 'fechaModificacion')
+        fields = ('id',  'fechaRegistro', 'fechaModificacion',  'estado', 'evento',  'participante')
+
+class NoticiaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Noticia
+        fields = ('id', 'titulo', 'resumen', 'contenido', 'imagen', 'fechaRegistro', 'fechaModificacion', 'usuarioRegistra', 'estado')
+
+class AsistenciaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AsistenciaActividad
+        fields = ('id', 'participante', 'actividad', 'fechaModificacion', 'fechaRegistro')

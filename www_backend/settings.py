@@ -33,11 +33,11 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'django.contrib.admin',
     'rest_framework',
+    'corsheaders',
     'eventos.apps.EventosConfig',
     'usuarios.apps.UsuariosConfig',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'corsheaders',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -65,7 +65,7 @@ ROOT_URLCONF = 'www_backend.urls'
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
 #        'rest_framework.permissions.IsAdminUser',
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
 
     ],
 
@@ -147,11 +147,19 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+CORS_ORIGIN_ALLOW_ALL = True
+
 JWT_AUTH = { 
     'JWT_AUTH_HEADER_PREFIX': 'JWT',
     'JWT_ALLOW_REFRESH': True,
     'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3000),
 }
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'iedb.tinker.apps.do.not.reply@gmail.com'
+EMAIL_HOST_PASSWORD = 'iedb.password'
+EMAIL_USE_TLS = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -172,10 +180,13 @@ LOCALE_PATHS = [
     'locale',
 ]
 
+<<<<<<< HEAD
 CORS_ORIGIN_ALLOW_ALL = True
 
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+=======
+>>>>>>> alpha
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')		
 STATIC_URL = '/static/'	

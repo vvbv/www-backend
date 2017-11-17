@@ -12,3 +12,4 @@ imagenes/cargas/*
 imagenes/cargas/*
 .vscode/*
 static/*
+venv/*
