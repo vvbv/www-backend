@@ -11,7 +11,7 @@ from rest_framework import status
 from usuarios.serializers import UsuarioSerializer
 
 
-class AsistenciaActividadList(generics.ListCreateAPIView):    
+class AsistenciaActividadList(generics.ListAPIView):    
     queryset = AsistenciaActividad.objects.all().order_by('fechaRegistro')
     serializer_class = AsistenciaSerializer
 
@@ -69,11 +69,29 @@ class PreInscripcionEventoList(generics.ListCreateAPIView):
     queryset = PreInscripcionEvento.objects.all().order_by('fechaPreInscripcion')
     serializer_class = PreInscripcionEventoSerializer
 
-class UsuariosPreinscritosPorEvento(generics.ListAPIView):
-    def get_queryset(self):
-        evento = kwargs['evento']
-        evetoObj = Evento.objects.get(id=evento)
-        
+
+@api_view(['PUT'])
+def aceptarPreinscipcionEvento(request, idEvento, idUsuario):
+    try:
+        preinscripcion = PreInscripcionEvento.objects.all().filter(evento=idEvento, participante = idUsuario)
+    except PreInscripcionEvento.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.method == 'PUT':
+        return 0
+
+@api_view(['GET'])
+def getUsuariosPreinscritosPorEvento(request, idEvento):
+    """
+    Retrieve, update or delete a code snippet.
+    """
+    try:
+        evento = Evento.objects.get(pk=idEvento)
+    except Evento.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.method == 'GET':
+        serializer = UsuarioSerializer(evento.usuariosPreinscritos.all(), many = True)
+        return Response(serializer.data)
+    
 
 
 class PreInscripcionEventoDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -82,14 +100,14 @@ class PreInscripcionEventoDetail(generics.RetrieveUpdateDestroyAPIView):
 
     def put(self, request, pk, format=None):
         inscripcion = InscripcionEvento()
-        serializer = InscripcionEventoSerializer(inscripcion, data=request.data)
         preInscripcion = self.get_object()
-        print(preInscripcion.evento)
-        if(preInscripcion.estado == preInscripcion.ACEPTADO):
-            inscripcion.evento = preInscripcion.evento
-            inscripcion.participante = inscripcion.participante
-            inscripcion.save()
+        serializer = PreInscripcionEventoSerializer(preInscripcion, data=request.data)
+        print(request.data)
         if serializer.is_valid():
+            if(request.data['estado'] == preInscripcion.ACEPTADO):
+                inscripcion.evento = preInscripcion.evento
+                inscripcion.participante = preInscripcion.participante
+                inscripcion.save()
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -99,19 +117,21 @@ class PreInscripcionByEventApi(generics.ListAPIView):
     queryset = PreInscripcionEvento.objects.all()
     def get_queryset(self):
         evento = self.kwargs['evento']
-        return  PreInscripcionEvento.objects.filter(evento=evento)
+        return  PreInscripcionEvento.objects.filter(evento=evento).order_by('fechaPreInscripcion')
     serializer_class =  PreInscripcionEventoSerializer
 
 
 class InscripcionByEventApi(generics.ListAPIView):
     def get_queryset(self):
         evento = self.kwargs['evento']
-        return  InscripcionEvento.objects.filter(evento=evento)
+        return  InscripcionEvento.objects.filter(evento=evento).order_by('fechaRegistro')
     serializer_class =  InscripcionEventoSerializer
 
 class InscripcionEventoList(generics.ListCreateAPIView):
     queryset = InscripcionEvento.objects.all().order_by('fechaRegistro')
     serializer_class = InscripcionEventoSerializer
+
+
 
 class InscripcionEventoDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = InscripcionEvento.objects.all()
@@ -120,23 +140,24 @@ class InscripcionEventoDetail(generics.RetrieveUpdateDestroyAPIView):
     def put(self, request, pk, format=None):
         inscripcion = self.get_object()
         serializer = InscripcionEventoSerializer(inscripcion, data=request.data)
-        if(inscripcion.estado == inscripcion.ACEPTADO):
-            preinscripcion = PreInscripcionEvento.objects.get(participante=inscripcion.participante, evento=inscripcion.evento)
-            preinscripcion.cambiarAEsperaConfirmacionUsuario()
-            preinscripcion.save()
-        if(inscripcion.estado == inscripcion.PAGADO):
-            preinscripcion = PreInscripcionEvento.objects.get(participante=inscripcion.participante, evento=inscripcion.evento)
-            preinscripcion.cambiarAPagado()
-            preinscripcion.save()
-        if(inscripcion.estado == inscripcion.ESPERA_APROVACION):
-            preinscripcion = PreInscripcionEvento.objects.get(participante=inscripcion.participante, evento=inscripcion.evento)
-            preinscripcion.cambiarAEsperaInscripcion()
-            preinscripcion.save()
-        if(inscripcion.estado == inscripcion.RECHAZADO):
-            preinscripcion = PreInscripcionEvento.objects.get(participante=inscripcion.participante, evento=inscripcion.evento)
-            preinscripcion.cambiarAInscripcionRechazada()
-            preinscripcion.save()
         if serializer.is_valid():
+            estadoInscripcionNueva = request.data['estado']
+            if(estadoInscripcionNueva == inscripcion.ACEPTADO):
+                preinscripcion = PreInscripcionEvento.objects.get(participante=inscripcion.participante, evento=inscripcion.evento)
+                preinscripcion.cambiarAEsperaConfirmacionUsuario()
+                preinscripcion.save()
+            if(estadoInscripcionNueva == inscripcion.PAGADO):
+                preinscripcion = PreInscripcionEvento.objects.get(participante=inscripcion.participante, evento=inscripcion.evento)
+                preinscripcion.cambiarAPagado()
+                preinscripcion.save()
+            if(estadoInscripcionNueva == inscripcion.ESPERA_APROVACION):
+                preinscripcion = PreInscripcionEvento.objects.get(participante=inscripcion.participante, evento=inscripcion.evento)
+                preinscripcion.cambiarAEsperaInscripcion()
+                preinscripcion.save()
+            if(estadoInscripcionNueva == inscripcion.RECHAZADO):
+                preinscripcion = PreInscripcionEvento.objects.get(participante=inscripcion.participante, evento=inscripcion.evento)
+                preinscripcion.cambiarAInscripcionRechazada()
+            preinscripcion.save()
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
