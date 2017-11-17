@@ -3,3 +3,6 @@ db.sqlite3
 */migrations/*
 *.mo
 imagenes/cargas/*
+.vscode/*
+static/*
+venv/*
