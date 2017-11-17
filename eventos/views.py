@@ -14,7 +14,7 @@ class AsistenciaActividadDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = AsistenciaActividad.objects.all()
     serializer_class = AsistenciaSerializer
 
-class AsistenciaActividadList(generics.ListAPIView):    
+class AsistenciaActividadList(generics.ListCreateAPIView):    
     queryset = AsistenciaActividad.objects.all().order_by('fechaRegistro')
     serializer_class = AsistenciaSerializer
 
