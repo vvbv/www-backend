@@ -10,7 +10,7 @@ from rest_framework.views import APIView
 from rest_framework import status
 from usuarios.serializers import UsuarioSerializer
 
-class AsistenciaActividadDetail(generics.RetrieveAPIView):    
+class AsistenciaActividadDetail(generics.RetrieveUpdateDestroyAPIView):    
     queryset = AsistenciaActividad.objects.all()
     serializer_class = AsistenciaSerializer
 
