@@ -7,6 +7,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.views import APIView
+from rest_framework import status
 from usuarios.serializers import UsuarioSerializer
 
 
@@ -68,9 +69,30 @@ class PreInscripcionEventoList(generics.ListCreateAPIView):
     queryset = PreInscripcionEvento.objects.all().order_by('fechaPreInscripcion')
     serializer_class = PreInscripcionEventoSerializer
 
+class UsuariosPreinscritosPorEvento(generics.ListAPIView):
+    def get_queryset(self):
+        evento = kwargs['evento']
+        evetoObj = Evento.objects.get(id=evento)
+        
+
+
 class PreInscripcionEventoDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = PreInscripcionEvento.objects.all()
     serializer_class = PreInscripcionEventoSerializer
+
+    def put(self, request, pk, format=None):
+        inscripcion = InscripcionEvento()
+        serializer = InscripcionEventoSerializer(inscripcion, data=request.data)
+        preInscripcion = self.get_object()
+        print(preInscripcion.evento)
+        if(preInscripcion.estado == preInscripcion.ACEPTADO):
+            inscripcion.evento = preInscripcion.evento
+            inscripcion.participante = inscripcion.participante
+            inscripcion.save()
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class PreInscripcionByEventApi(generics.ListAPIView):
@@ -94,6 +116,31 @@ class InscripcionEventoList(generics.ListCreateAPIView):
 class InscripcionEventoDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = InscripcionEvento.objects.all()
     serializer_class = InscripcionEventoSerializer
+
+    def put(self, request, pk, format=None):
+        inscripcion = self.get_object()
+        serializer = InscripcionEventoSerializer(inscripcion, data=request.data)
+        if(inscripcion.estado == inscripcion.ACEPTADO):
+            preinscripcion = PreInscripcionEvento.objects.get(participante=inscripcion.participante, evento=inscripcion.evento)
+            preinscripcion.cambiarAEsperaConfirmacionUsuario()
+            preinscripcion.save()
+        if(inscripcion.estado == inscripcion.PAGADO):
+            preinscripcion = PreInscripcionEvento.objects.get(participante=inscripcion.participante, evento=inscripcion.evento)
+            preinscripcion.cambiarAPagado()
+            preinscripcion.save()
+        if(inscripcion.estado == inscripcion.ESPERA_APROVACION):
+            preinscripcion = PreInscripcionEvento.objects.get(participante=inscripcion.participante, evento=inscripcion.evento)
+            preinscripcion.cambiarAEsperaInscripcion()
+            preinscripcion.save()
+        if(inscripcion.estado == inscripcion.RECHAZADO):
+            preinscripcion = PreInscripcionEvento.objects.get(participante=inscripcion.participante, evento=inscripcion.evento)
+            preinscripcion.cambiarAInscripcionRechazada()
+            preinscripcion.save()
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class PreInscripcionEventoByIdUserIdEvent(generics.ListAPIView):
     queryset = PreInscripcionEvento.objects.all()

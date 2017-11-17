@@ -29,7 +29,7 @@ class PreInscripcionEventoSerializer(serializers.ModelSerializer):
 class InscripcionEventoSerializer(serializers.ModelSerializer):
     class Meta:
         model = InscripcionEvento
-        fields = ('id', 'evento', 'participante', 'estado', 'fechaRegistro', 'fechaModificacion')
+        fields = ('id',  'fechaRegistro', 'fechaModificacion',  'estado', 'evento',  'participante')
 
 class NoticiaSerializer(serializers.ModelSerializer):
     class Meta:
