@@ -12,14 +12,14 @@ class EventoSerializer(serializers.ModelSerializer):
         return attrs
     class Meta: 
         model = Evento
-        fields = ('id',     'nombre',  'descripcion', 'precio', 'fechaInicio', 'fechaFinalizacion', 'estado', 'actividades', 'usuariosPreinscritos', 'imagen')
+        fields = ('id', 'nombre',  'descripcion', 'precio', 'fechaInicio', 'fechaFinalizacion', 'estado', 'actividades', 'usuariosPreinscritos', 'imagen')
     def get_estados(self, obj):
         return obj.get_estados_display()
    
 class ActividadSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Actividad   
-        fields = ('id', 'nombre', 'descripcion', 'fechaInicio', 'fechaFinalizacion', 'evento', 'asistentes')
+        fields = ('id', 'nombre', 'descripcion', 'fechaInicio', 'fechaFinalizacion', 'evento')
 
 class PreInscripcionEventoSerializer(serializers.ModelSerializer):
     class Meta:
