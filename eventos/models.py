@@ -3,8 +3,10 @@ from __future__ import unicode_literals
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext as _
 from django.db import models
+from django.db.models import Count
 from usuarios.models import Usuario 
 import eventos.validators as validators
+from django.utils import timezone
 # Create your models here.
 
 class Evento(models.Model):
@@ -131,3 +133,31 @@ class Noticia(models.Model):
     usuarioRegistra = models.ForeignKey(Usuario, on_delete = models.CASCADE, related_name='noticia_usuario_registra')
     fechaModificacion = models.DateTimeField(auto_now_add=True, null=False, editable=False)
     estado = models.BooleanField(_('Estado'), null=False, default= True)
+
+class EstadisticasEventos:
+    cantidadEventosCancelados = 0
+    cantidadEventosSinIniciar = 0
+    cantidadEventosTerminados = 0
+    cantidadEventosEnCurso = 0
+    
+    def toJSON(self):
+        return self.__dict__
+    
+class ReportesEventos:
+    def cantidadEventosEnCurso(self):
+        fecha_actual = timezone.now()
+        return Evento.objects.filter(fechaInicio__lte = fecha_actual, fechaFinalizacion__gte=fecha_actual).count()
+    def cantidadEventosFinalizados(self):
+        return Evento.objects.filter(estado=Evento.FINALIZADO).count()
+    def cantidadEventosSinIniciar(self):
+        return Evento.objects.filter(estado=Evento.SIN_INICIAR).count()
+    def cantidadEventosCancelados(self):
+        return Evento.objects.filter(estado=Evento.CANCELADO).count()
+    def estadisticas(self):
+        estadisticasEventos = EstadisticasEventos()
+        estadisticasEventos.cantidadEventosCancelados = self.cantidadEventosCancelados()
+        estadisticasEventos.cantidadEventosSinIniciar = self.cantidadEventosSinIniciar()
+        estadisticasEventos.cantidadEventosTerminados = self.cantidadEventosFinalizados()
+        estadisticasEventos.cantidadEventosEnCurso = self.cantidadEventosEnCurso()
+        return estadisticasEventos
+        

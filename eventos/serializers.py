@@ -38,6 +38,15 @@ class InscripcionEventoSerializer(serializers.ModelSerializer):
         model = InscripcionEvento
         fields = ('id',  'fechaRegistro', 'fechaModificacion',  'estado', 'evento',  'participante')
 
+class InscripcionEventoConUsuarioSerializer(serializers.ModelSerializer):
+    participante = UsuarioSerializer(read_only=True)
+    class Meta:
+        model = InscripcionEvento
+        fields = ('id',  'fechaRegistro', 'fechaModificacion',  'estado', 'evento',  'participante')
+
+
+
+
 class NoticiaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Noticia

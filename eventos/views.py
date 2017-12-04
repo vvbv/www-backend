@@ -2,13 +2,17 @@
 from __future__ import unicode_literals
 from rest_framework import viewsets, generics
 from .models import Evento, Actividad, PreInscripcionEvento, InscripcionEvento, Noticia, AsistenciaActividad
-from .serializers import EventoSerializer, ActividadSerializer, PreInscripcionEventoSerializer, InscripcionEventoSerializer, NoticiaSerializer, AsistenciaSerializer, PreInscripcionEventoConUsuarioSerializer
+from .serializers import EventoSerializer, ActividadSerializer, PreInscripcionEventoSerializer, InscripcionEventoSerializer, NoticiaSerializer, AsistenciaSerializer, PreInscripcionEventoConUsuarioSerializer, InscripcionEventoConUsuarioSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.views import APIView
 from rest_framework import status
 from usuarios.serializers import UsuarioSerializer
+
+from django.http import JsonResponse
+
+from .models import ReportesEventos
 
 class AsistenciaActividadDetail(generics.RetrieveUpdateDestroyAPIView):    
     queryset = AsistenciaActividad.objects.all()
@@ -32,6 +36,11 @@ class ActividadList(generics.ListAPIView):
 class ActividadAllList(generics.ListCreateAPIView):    
     queryset = Actividad.objects.all().order_by('fechaInicio')
     serializer_class = ActividadSerializer
+
+@api_view(['GET'])
+def estadisticasEventos(request):
+    reportesEventos = ReportesEventos()
+    return JsonResponse(reportesEventos.estadisticas().toJSON())
 
 class ActivdadCreate(generics.CreateAPIView):    
     queryset = Actividad.objects.all()
@@ -127,6 +136,13 @@ class PreInscripcionByEventConUsuarios(generics.ListAPIView):
         evento = self.kwargs['evento']
         return PreInscripcionEvento.objects.filter(evento=evento).order_by('fechaPreInscripcion')
     serializer_class =  PreInscripcionEventoConUsuarioSerializer
+
+class InscripcionByEventConUsuarios(generics.ListAPIView):
+    def get_queryset(self):
+        evento = self.kwargs['evento']
+        return InscripcionEvento.objects.filter(evento=evento).order_by('fechaRegistro')
+    serializer_class =  InscripcionEventoConUsuarioSerializer
+
 
 class InscripcionByEventApi(generics.ListAPIView):
     def get_queryset(self):
