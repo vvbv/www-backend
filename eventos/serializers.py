@@ -26,6 +26,13 @@ class PreInscripcionEventoSerializer(serializers.ModelSerializer):
         model = PreInscripcionEvento
         fields = ('id', 'evento', 'participante', 'fechaPreInscripcion', 'estado')
 
+class PreInscripcionEventoConUsuarioSerializer(serializers.ModelSerializer):
+    participante = UsuarioSerializer(read_only=True)
+    class Meta:
+        model = PreInscripcionEvento
+        fields = ('id', 'evento', 'participante', 'fechaPreInscripcion', 'estado')
+
+
 class InscripcionEventoSerializer(serializers.ModelSerializer):
     class Meta:
         model = InscripcionEvento
