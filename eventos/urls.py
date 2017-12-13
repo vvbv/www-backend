@@ -6,6 +6,7 @@ urlpatterns = [
     url(r'^eventos/$', views.EventoList.as_view(), name = 'eventos-list'),
     url(r'^eventos/estadisticas/$', views.estadisticasEventos, name = 'eventos-estadisticas'),
     url(r'^noticias/$', views.NoticiasList.as_view(), name = 'noticia-list'),
+    url(r'^usuarios/(?P<usuario>[0-9]+)/eventosSinSeguimiento/$', views.EventosSinSeguimiento.as_view(), name = 'eventos-sin-seguimiento-usuario'),    
     url(r'^usuarios/(?P<usuario>[0-9]+)/inscripcionesConEvento/$', views.InscripcionesConEvento.as_view(), name = 'eventos-inscritos-usuario'),
     url(r'^usuarios/(?P<usuario>[0-9]+)/preinscripcionesConEvento/$', views.PreinscripcionesConEvento.as_view(), name = 'eventos-preinscritos-usuario'),
     url(r'^noticias/cincoUltimas/$', views.NoticiasList.as_view(), name = 'cinco-ultimas-noticias'),

@@ -9,7 +9,7 @@ from rest_framework.reverse import reverse
 from rest_framework.views import APIView
 from rest_framework import status
 from usuarios.serializers import UsuarioSerializer
-
+from django.db.models import Q
 from django.http import JsonResponse
 
 from .models import ReportesEventos
@@ -255,6 +255,13 @@ class PreinscripcionesConEvento(generics.ListAPIView):
         """
         usuario = self.kwargs['usuario']
         return PreInscripcionEvento.objects.filter(participante=usuario)
+
+class EventosSinSeguimiento(generics.ListAPIView):
+    serializer_class = EventoSerializer
+    def get_queryset(self):
+        usuario = self.kwargs['usuario']
+        
+        return Evento.objects.filter(~Q(usuariosInscritos = usuario), ~Q(usuariosPreinscritos = usuario) )
 
 class InscripcionesConEvento(generics.ListAPIView):
     serializer_class = InscripcionEventoConEventoSerializer
