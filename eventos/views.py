@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 from rest_framework import viewsets, generics
 from .models import Evento, Actividad, PreInscripcionEvento, InscripcionEvento, Noticia, AsistenciaActividad
-from .serializers import EventoSerializer, ActividadSerializer, PreInscripcionEventoSerializer, InscripcionEventoSerializer, NoticiaSerializer, AsistenciaSerializer, PreInscripcionEventoConUsuarioSerializer, InscripcionEventoConUsuarioSerializer
+from .serializers import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
@@ -46,10 +46,10 @@ class ActivdadCreate(generics.CreateAPIView):
     queryset = Actividad.objects.all()
     serializer_class = ActividadSerializer
 
-class EventosEstadosList(APIView):
-    def get(self, request, format=None):
-        serializer =  EventoEstadosSerializer(Evento.ESTADO_EVENTOS)
-        return Response(serializer.data)
+
+class CincoUltimosEventosList(generics.ListAPIView):
+    queryset = Evento.objects.all().order_by('fechaInicio')[:5]
+    serializer_class = EventoSerializer
 
 class ActividadDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Actividad.objects.all()
@@ -246,13 +246,22 @@ class InscripcionesByEvent(generics.ListAPIView):
         usuario = self.kwargs['usuario']
         return InscripcionEvento.objects.filter(evento=evento, participante=usuario)
         
-class EventosInscritosPorParticipante(generics.ListAPIView):
-    queryset = PreInscripcionEvento.objects.all()
-    serializer_class = PreInscripcionEventoSerializer
+class PreinscripcionesConEvento(generics.ListAPIView):
+    serializer_class = PreInscripcionEventoConEventoSerializer
     def get_queryset(self):
         """
         This view should return a list of all models by
         the maker passed in the URL
         """
         usuario = self.kwargs['usuario']
-        return PreInscripcionEvento.objects.filter(evento=evento, participante=usuario).selectRelated('preinscripcionEvento_evento')
+        return PreInscripcionEvento.objects.filter(participante=usuario)
+
+class InscripcionesConEvento(generics.ListAPIView):
+    serializer_class = InscripcionEventoConEventoSerializer
+    def get_queryset(self):
+        """
+        This view should return a list of all models by
+        the maker passed in the URL
+        """
+        usuario = self.kwargs['usuario']
+        return InscripcionEvento.objects.filter(participante=usuario)

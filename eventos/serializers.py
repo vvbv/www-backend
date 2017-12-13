@@ -32,7 +32,12 @@ class PreInscripcionEventoConUsuarioSerializer(serializers.ModelSerializer):
         model = PreInscripcionEvento
         fields = ('id', 'evento', 'participante', 'fechaPreInscripcion', 'estado')
 
-
+class PreInscripcionEventoConEventoSerializer(serializers.ModelSerializer):
+    evento = EventoSerializer(read_only=True)
+    class Meta:
+        model = PreInscripcionEvento
+        fields = ('id', 'evento', 'participante', 'fechaPreInscripcion', 'estado')
+        
 class InscripcionEventoSerializer(serializers.ModelSerializer):
     class Meta:
         model = InscripcionEvento
@@ -45,7 +50,11 @@ class InscripcionEventoConUsuarioSerializer(serializers.ModelSerializer):
         fields = ('id',  'fechaRegistro', 'fechaModificacion',  'estado', 'evento',  'participante')
 
 
-
+class InscripcionEventoConEventoSerializer(serializers.ModelSerializer):
+    evento = EventoSerializer(read_only=True)
+    class Meta:
+        model = InscripcionEvento
+        fields = ('id',  'fechaRegistro', 'fechaModificacion',  'estado', 'evento',  'participante')
 
 class NoticiaSerializer(serializers.ModelSerializer):
     class Meta:

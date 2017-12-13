@@ -139,10 +139,22 @@ class EstadisticasEventos:
     cantidadEventosSinIniciar = 0
     cantidadEventosTerminados = 0
     cantidadEventosEnCurso = 0
+    numeroTotalEventos = 0
+    
+    def toJSON(self):
+        return self.__dict__
+
+class EstadisticasInscripciones:
+    cantidadInscripciones = 0
+    cantidadInscripcionesAceptadas = 0
+    cantidadInscripcionesRechazadas = 0
+    cantidadInscripcionesPendientes = 0
     
     def toJSON(self):
         return self.__dict__
     
+    
+
 class ReportesEventos:
     def cantidadEventosEnCurso(self):
         fecha_actual = timezone.now()
@@ -160,4 +172,22 @@ class ReportesEventos:
         estadisticasEventos.cantidadEventosTerminados = self.cantidadEventosFinalizados()
         estadisticasEventos.cantidadEventosEnCurso = self.cantidadEventosEnCurso()
         return estadisticasEventos
-        
+
+class ReportesInscripciones:
+    def cantidadInscripcionesAceptadas(self):
+        return InscripcionEvento.objects.filter(estado = InscripcionEvento.ACEPTADO).count()
+    def cantidadInscripcionesRechazadas(self):
+        return InscripcionEvento.objects.filter(estado = InscripcionEvento.RECHAZADO).count()
+    def cantidadInscripciones(self):
+        return InscripcionEvento.objects.count()
+    def cantidadInscripcionesEnEsperaPago(self):
+        return InscripcionEvento.objects.filter(estado = InscripcionEvento.ESPERA_PAGO).count()
+    def cantidadInscripcionesPagadas(self):
+        return InscripcionEvento.objects.filter(estado = InscripcionEvento.PAGADO).count()
+    
+    def estadisticas(self):
+        estadisticasInscripciones =  EstadisticasInscripciones()
+        estadisticasInscripciones.cantidadInscripcionesPagadas = self.cantidadInscripcionesPagadas()
+        estadisticasInscripciones.cantidadInscripcionesEnEsperaPago = self.cantidadInscripcionesEnEsperaPago()
+        estadisticasInscripciones.cantidadInscripcionesAceptadas = self.cantidadInscripcionesAceptadas()
+        return estadisticasInscripciones
