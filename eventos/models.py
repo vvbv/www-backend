@@ -67,14 +67,14 @@ class PreInscripcionEvento(models.Model):
     class Meta:
         unique_together = (('evento', 'participante'),)
 
-    ACEPTADO = _('A')
-    RECHAZADO = _('R')
-    ESPERA_APROVACION = _('EA')
-    ESPERA_INSCRIPCION = _('EI')
-    ESPERA_CONFIRMACION_USUARIO = _('EC')
-    ESPERA_PAGO = _('EP')
-    INSCRIPCION_RECHAZADA = _('IR')
-    PAGADO = _('P')
+    ACEPTADO = 'A'
+    RECHAZADO = 'R'
+    ESPERA_APROVACION = 'EA'
+    ESPERA_INSCRIPCION = 'EI'
+    ESPERA_CONFIRMACION_USUARIO = 'EC'
+    ESPERA_PAGO = 'EP'
+    INSCRIPCION_RECHAZADA = 'IR'
+    PAGADO = 'P'
     ESTADO_NAMES = (_('Preinscripción aceptada'), _('Preinscripcion rechazada'),  _('Revision de preinscripcion pendiente'),
     _('Revisión de inscripción pendiente'),
     _('Inscripcion rechazada'),
