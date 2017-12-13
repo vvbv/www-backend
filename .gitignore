@@ -6,3 +6,7 @@ imagenes/cargas/*
 .vscode/*
 static/*
 venv/*
+bin/*
+include/*
+lib/*
+pip-selfcheck.json
