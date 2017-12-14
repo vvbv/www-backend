@@ -31,7 +31,9 @@ class MedioDePagoPorUsuario(generics.ListAPIView):
         """
         username = self.kwargs['username']
         return MedioDePago.objects.all().filter(usuario__username = username)
-        
+
+def abonarPago():
+    return 0
 
 class UsuarioUsernameApi(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'username'

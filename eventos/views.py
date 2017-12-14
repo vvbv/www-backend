@@ -82,14 +82,17 @@ class PreInscripcionEventoList(generics.ListCreateAPIView):
     serializer_class = PreInscripcionEventoSerializer
 
 
-@api_view(['PUT'])
-def aceptarPreinscipcionEvento(request, idEvento, idUsuario):
+@api_view(['GET'])
+def aceptarInscripcionEventoPorUsuario(request, evento, usuario):
     try:
-        preinscripcion = PreInscripcionEvento.objects.all().filter(evento=idEvento, participante = idUsuario)
-    except PreInscripcionEvento.DoesNotExist:
+        inscripcion = InscripcionEvento.objects.get(evento = evento, participante = usuario)
+        inscripcion.estado = InscripcionEvento.ESPERA_PAGO
+        inscripcion.save()
+        return JsonResponse(InscripcionEventoSerializer(inscripcion).data)
+    except InscripcionEvento.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
-    if request.method == 'PUT':
-        return 0
+        
+
 
 @api_view(['GET'])
 def getUsuariosPreinscritosPorEvento(request, idEvento):

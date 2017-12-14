@@ -68,11 +68,11 @@ class PreInscripcionEvento(models.Model):
         unique_together = (('evento', 'participante'),)
 
     ACEPTADO = 'A'
-    RECHAZADO = 'R'
+    RECHAZADO_OPERADOR = 'R'
     ESPERA_APROVACION = 'EA'
-    ESTADO_NAMES = (_('Preinscripción aceptada'), _('Preinscripcion rechazada'), _('Espera Aprovación') )
+    ESTADO_NAMES = (_('Preinscripción aceptada'), _('Preinscripcion rechazada'), _('Preinscripcion en espera de Aprovación') )
 
-    ESTADO_VALS = (ACEPTADO, RECHAZADO, ESPERA_APROVACION)
+    ESTADO_VALS = (ACEPTADO, RECHAZADO_OPERADOR, ESPERA_APROVACION)
     ESTADO_TYPES = tuple(zip(ESTADO_VALS,ESTADO_NAMES))
     evento  = models.ForeignKey(Evento, on_delete=models.CASCADE, related_name='preinscripcionEvento_evento')
     participante = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='preinscripionEvneto_participante')

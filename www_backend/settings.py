@@ -147,7 +147,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 JWT_AUTH = { 
     'JWT_AUTH_HEADER_PREFIX': 'JWT',
     'JWT_ALLOW_REFRESH': True,
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3000),
+    'JWT_EXPIRATION_DELTA':  datetime.timedelta(days=100),
 }
 
 EMAIL_HOST = 'smtp.gmail.com'
