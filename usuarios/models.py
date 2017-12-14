@@ -35,3 +35,13 @@ class Usuario(User):
     fechaHoraRegistro = models.DateField(auto_now_add=True, null=False)
     custom_email = models.EmailField(_('Correo electrónico'),max_length=255, unique=True, null=False)
  
+class MedioDePago(models.Model):
+    usuario = models.ForeignKey(Usuario,  on_delete=models.CASCADE, related_name='medio_de_pago_usuario')
+    numero_cuenta = models.CharField(_('Número de cuenta'), max_length = 20, null = False)
+    @classmethod
+    def create(cls, usuario, numero_cuenta):
+        medio_de_pago = cls(usuario=usuario, numero_cuenta=numero_cuenta)
+        return medio_de_pago
+    
+    class Meta:
+        unique_together = (('usuario', 'numero_cuenta'))

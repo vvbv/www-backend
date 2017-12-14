@@ -2,7 +2,7 @@ import crypt
 
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from usuarios.models import Usuario
+from usuarios.models import Usuario, MedioDePago
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import get_user_model
 from rest_framework.decorators import api_view, permission_classes
@@ -37,3 +37,8 @@ class UsuarioSerializer(serializers.ModelSerializer):
                 setattr(instance, attr, value)
         instance.save()
         return instance
+
+class MedioDePagoSerializer(serializers.ModelSerializer):
+    class Meta: 
+        model = MedioDePago
+        fields = ('id', 'usuario', 'numero_cuenta') 

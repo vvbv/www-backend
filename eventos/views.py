@@ -165,22 +165,12 @@ class InscripcionEventoDetail(generics.RetrieveUpdateDestroyAPIView):
         serializer = InscripcionEventoSerializer(inscripcion, data=request.data)
         if serializer.is_valid():
             estadoInscripcionNueva = request.data['estado']
-            if(estadoInscripcionNueva == inscripcion.ACEPTADO):
+            if(estadoInscripcionNueva == inscripcion.ESPERA_APROVACION_OPERADOR):
                 preinscripcion = PreInscripcionEvento.objects.get(participante=inscripcion.participante, evento=inscripcion.evento)
-                preinscripcion.cambiarAEsperaConfirmacionUsuario()
-                preinscripcion.save()
-            if(estadoInscripcionNueva == inscripcion.PAGADO):
-                preinscripcion = PreInscripcionEvento.objects.get(participante=inscripcion.participante, evento=inscripcion.evento)
-                preinscripcion.cambiarAPagado()
-                preinscripcion.save()
-            if(estadoInscripcionNueva == inscripcion.ESPERA_APROVACION):
-                preinscripcion = PreInscripcionEvento.objects.get(participante=inscripcion.participante, evento=inscripcion.evento)
-                preinscripcion.cambiarAEsperaInscripcion()
-                preinscripcion.save()
+                preinscripcion.delete()
             if(estadoInscripcionNueva == inscripcion.RECHAZADO):
                 preinscripcion = PreInscripcionEvento.objects.get(participante=inscripcion.participante, evento=inscripcion.evento)
-                preinscripcion.cambiarAInscripcionRechazada()
-            preinscripcion.save()
+                preinscripcion.delete()
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

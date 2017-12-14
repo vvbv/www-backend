@@ -70,48 +70,30 @@ class PreInscripcionEvento(models.Model):
     ACEPTADO = 'A'
     RECHAZADO = 'R'
     ESPERA_APROVACION = 'EA'
-    ESPERA_INSCRIPCION = 'EI'
-    ESPERA_CONFIRMACION_USUARIO = 'EC'
-    ESPERA_PAGO = 'EP'
-    INSCRIPCION_RECHAZADA = 'IR'
-    PAGADO = 'P'
-    ESTADO_NAMES = (_('Preinscripción aceptada'), _('Preinscripcion rechazada'),  _('Revision de preinscripcion pendiente'),
-    _('Revisión de inscripción pendiente'),
-    _('Inscripcion rechazada'),
-    _('A la espera de confimación del usuario'), _('Pago pendiente'), 
-    _('Pago registrado'))
+    ESTADO_NAMES = (_('Preinscripción aceptada'), _('Preinscripcion rechazada'), _('Espera Aprovación') )
 
-    ESTADO_VALS = (ACEPTADO, RECHAZADO, ESPERA_APROVACION, ESPERA_INSCRIPCION, INSCRIPCION_RECHAZADA,
-    ESPERA_CONFIRMACION_USUARIO,  ESPERA_PAGO, PAGADO)
+    ESTADO_VALS = (ACEPTADO, RECHAZADO, ESPERA_APROVACION)
     ESTADO_TYPES = tuple(zip(ESTADO_VALS,ESTADO_NAMES))
     evento  = models.ForeignKey(Evento, on_delete=models.CASCADE, related_name='preinscripcionEvento_evento')
     participante = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='preinscripionEvneto_participante')
     fechaPreInscripcion = models.DateTimeField(auto_now_add=True, editable=False)
     estado = models.CharField(null=False,choices=ESTADO_TYPES, default=ESPERA_APROVACION, max_length=2)
-    def cambiarAEsperaInscripcion(self):
-        self.estado = self.ESPERA_INSCRIPCION
-    def cambiarAEsperaPago(self):
-        self.estado = self.ESPERA_PAGO
-    def cambiarAPagado(self):
-        self.estado = self.PAGADO
-    def cambiarAInscripcionRechazada(self):
-        self.estado = self.INSCRIPCION_RECHAZADA
-    def cambiarAEsperaConfirmacionUsuario(self):
-        self.estado = self.ESPERA_CONFIRMACION_USUARIO
+        
 class InscripcionEvento(models.Model):
     class Meta:
         unique_together = (('evento', 'participante'))
-    ACEPTADO = _('A')
-    ESPERA_PAGO = _('EP')
-    PAGADO = _('P')
-    RECHAZADO = _('R')
-    ESPERA_APROVACION = _('EA')
-    ESTADO_NAMES = (_('Aceptado'), _('Rechazado'), _('En espera'), _('En espera de pago'), _('Pagado'))
-    ESTADO_VALS = (ACEPTADO, RECHAZADO, ESPERA_APROVACION, ESPERA_PAGO, PAGADO)
+    ESPERA_PAGO = 'EP'
+    PAGADO = 'P'
+    RECHAZADO = 'R'
+    ESPERA_APROVACION_OPERADOR = 'EO'
+    ESPERA_APROVACION_USUARIO = 'EU'
+    
+    ESTADO_NAMES = (_('Rechazado'), _('En espera aprovacion de un operador'), _('En espera de pago'), _('Pagado'), _('Espera de confirmación de usuario'))
+    ESTADO_VALS = (RECHAZADO, ESPERA_APROVACION_OPERADOR, ESPERA_PAGO, PAGADO, ESPERA_APROVACION_USUARIO)
     ESTADO_TYPES = tuple(zip(ESTADO_VALS, ESTADO_NAMES))
     fechaRegistro = models.DateTimeField(auto_now_add=True, null=False, editable=False)
     fechaModificacion = models.DateTimeField(auto_now_add=True, null=False, editable=False)
-    estado = models.CharField(choices=ESTADO_TYPES, default=ESPERA_APROVACION, max_length=2)
+    estado = models.CharField(choices=ESTADO_TYPES, default=ESPERA_APROVACION_OPERADOR, max_length=2)
     evento  = models.ForeignKey(Evento, on_delete=models.CASCADE, related_name='inscripcionEvento_evento')
     participante = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='inscripcionEvento_participante')
 

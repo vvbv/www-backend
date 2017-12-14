@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'eventos.apps.EventosConfig',
     'usuarios.apps.UsuariosConfig',
     'django.contrib.auth',
+    'pagos_middleware.apps.PagosMiddlewareConfig',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -48,7 +49,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
